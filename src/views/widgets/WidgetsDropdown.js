@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -13,13 +13,24 @@ import {
 import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import { cilGroup, cilArrowTop, cilOptions, cilArrowBottom } from '@coreui/icons'
+
+//My Imports
+import { fetchEmployees } from '../../api/fetch'
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
   const widgetChartRef2 = useRef(null)
 
+  const [employees, setEmployees] = useState([])
+  const [percentChange, setPercenteChange] = useState([])
+
   useEffect(() => {
+    fetchEmployees().then((data) => {
+      setEmployees(data.users)
+      setPercenteChange(data.period)
+      console.log(data.period)
+    })
     document.documentElement.addEventListener('ColorSchemeChange', () => {
       if (widgetChartRef1.current) {
         setTimeout(() => {
@@ -41,26 +52,44 @@ const WidgetsDropdown = (props) => {
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color="primary"
+          color="info"
           value={
             <>
-              26K{' '}
+              {employees.length}{' '}
               <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
+                (
+                {percentChange[0] !== null && (
+                  <span
+                    style={{
+                      color:
+                        percentChange[0] < 0 ? 'red' : percentChange[0] > 0 ? 'green' : 'white',
+                    }}
+                  >
+                    {percentChange[0]}%
+                    <CIcon
+                      icon={
+                        percentChange[0] < 0
+                          ? cilArrowBottom
+                          : percentChange[0] > 0
+                            ? cilArrowTop
+                            : cilGroup
+                      }
+                    />
+                  </span>
+                )}
+                )
               </span>
             </>
           }
-          title="Users"
+          title="Employees"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
                 <CIcon icon={cilOptions} />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem>View Employees</CDropdownItem>
+                <CDropdownItem>Remove Card</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
@@ -70,14 +99,15 @@ const WidgetsDropdown = (props) => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['January', 'February'],
                 datasets: [
                   {
                     label: 'My First dataset',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
-                    pointBackgroundColor: getStyle('--cui-primary'),
-                    data: [65, 59, 84, 84, 51, 55, 40],
+                    pointBackgroundColor: getStyle('--cui-info'),
+                    data: [percentChange[1], percentChange[2]],
+                    barPercentage: 0.1,
                   },
                 ],
               }}
@@ -98,12 +128,13 @@ const WidgetsDropdown = (props) => {
                       drawBorder: false,
                     },
                     ticks: {
-                      display: false,
+                      display: true,
+                      color: getStyle('--cui-white'),
                     },
                   },
                   y: {
-                    min: 30,
-                    max: 89,
+                    min: 0,
+                    max: 5,
                     display: false,
                     grid: {
                       display: false,
@@ -120,7 +151,7 @@ const WidgetsDropdown = (props) => {
                   },
                   point: {
                     radius: 4,
-                    hitRadius: 10,
+                    hitRadius: 20,
                     hoverRadius: 4,
                   },
                 },
@@ -129,7 +160,7 @@ const WidgetsDropdown = (props) => {
           }
         />
       </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
+      {/* <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="info"
           value={
@@ -217,8 +248,8 @@ const WidgetsDropdown = (props) => {
             />
           }
         />
-      </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
+      </CCol> */}
+      {/* <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="warning"
           value={
@@ -289,15 +320,15 @@ const WidgetsDropdown = (props) => {
             />
           }
         />
-      </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
+      </CCol> */}
+      {/* <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="danger"
           value={
             <>
               44K{' '}
               <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
+                (-23.6% <CIcon icon={cilGroup} />)
               </span>
             </>
           }
@@ -383,7 +414,7 @@ const WidgetsDropdown = (props) => {
             />
           }
         />
-      </CCol>
+      </CCol> */}
     </CRow>
   )
 }

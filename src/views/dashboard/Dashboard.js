@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
+import { fetchEmployees, fetchDeleteEmployee } from '../../api/fetch'
+import { capitalize, formatDate } from '../../utils/helpers'
+import { Link } from 'react-router-dom'
 
 import {
   CAvatar,
@@ -18,24 +21,19 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CPopover,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
   cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
+  cilTruck,
+  cilTrash,
   cibGoogle,
   cibFacebook,
   cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
+  cifRo,
   cifPl,
-  cifUs,
+  cilZoom,
   cibTwitter,
   cilCloudDownload,
   cilPeople,
@@ -43,18 +41,19 @@ import {
   cilUserFemale,
 } from '@coreui/icons'
 
-import avatar1 from 'src/assets/images/avatars/1.jpg'
-import avatar2 from 'src/assets/images/avatars/2.jpg'
-import avatar3 from 'src/assets/images/avatars/3.jpg'
-import avatar4 from 'src/assets/images/avatars/4.jpg'
-import avatar5 from 'src/assets/images/avatars/5.jpg'
-import avatar6 from 'src/assets/images/avatars/6.jpg'
-
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import MainChart from './MainChart'
 
 const Dashboard = () => {
+  const [employees, setEmployees] = useState([])
+
+  useEffect(() => {
+    fetchEmployees().then((data) => {
+      setEmployees(data.users)
+      console.log(data.period)
+    })
+  }, [])
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
@@ -85,96 +84,14 @@ const Dashboard = () => {
     { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
   ]
 
-  const tableExample = [
-    {
-      avatar: { src: avatar1, status: 'success' },
-      user: {
-        name: 'Yiorgos Avraamu',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'USA', flag: cifUs },
-      usage: {
-        value: 50,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Mastercard', icon: cibCcMastercard },
-      activity: '10 sec ago',
-    },
-    {
-      avatar: { src: avatar2, status: 'danger' },
-      user: {
-        name: 'Avram Tarasios',
-        new: false,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Brazil', flag: cifBr },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'info',
-      },
-      payment: { name: 'Visa', icon: cibCcVisa },
-      activity: '5 minutes ago',
-    },
-    {
-      avatar: { src: avatar3, status: 'warning' },
-      user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'India', flag: cifIn },
-      usage: {
-        value: 74,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'warning',
-      },
-      payment: { name: 'Stripe', icon: cibCcStripe },
-      activity: '1 hour ago',
-    },
-    {
-      avatar: { src: avatar4, status: 'secondary' },
-      user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'France', flag: cifFr },
-      usage: {
-        value: 98,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'danger',
-      },
-      payment: { name: 'PayPal', icon: cibCcPaypal },
-      activity: 'Last month',
-    },
-    {
-      avatar: { src: avatar5, status: 'success' },
-      user: {
-        name: 'Agapetus Tadeáš',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Spain', flag: cifEs },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'primary',
-      },
-      payment: { name: 'Google Wallet', icon: cibCcApplePay },
-      activity: 'Last week',
-    },
-    {
-      avatar: { src: avatar6, status: 'danger' },
-      user: {
-        name: 'Friderik Dávid',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Poland', flag: cifPl },
-      usage: {
-        value: 43,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Amex', icon: cibCcAmex },
-      activity: 'Last week',
-    },
-  ]
+  const customPopoverStyle = {
+    '--cui-popover-max-width': '200px',
+    '--cui-popover-border-color': 'var(--cui-primary)',
+    '--cui-popover-header-bg': 'var(--cui-primary)',
+    '--cui-popover-header-color': 'var(--cui-white)',
+    '--cui-popover-body-padding-x': '1rem',
+    '--cui-popover-body-padding-y': '.5rem',
+  }
 
   return (
     <>
@@ -198,7 +115,7 @@ const Dashboard = () => {
                     color="outline-secondary"
                     key={value}
                     className="mx-0"
-                    active={value === 'Month'}
+                    active={value === 'Year'}
                   >
                     {value}
                   </CButton>
@@ -329,48 +246,90 @@ const Dashboard = () => {
                     <CTableHeaderCell className="bg-body-tertiary text-center">
                       <CIcon icon={cilPeople} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">User</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Employee</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Country
+                      Role
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Usage</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">
+                      Total Income this Month
+                    </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Payment Method
+                      Status
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {tableExample.map((item, index) => (
+                  {employees.map((item, index) => (
                     <CTableRow v-for="item in tableItems" key={index}>
                       <CTableDataCell className="text-center">
-                        <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
+                        <CAvatar size="md" src={item.picture} status="success" />
                       </CTableDataCell>
                       <CTableDataCell>
-                        <div>{item.user.name}</div>
+                        <div>{item.name}</div>
                         <div className="small text-body-secondary text-nowrap">
-                          <span>{item.user.new ? 'New' : 'Recurring'}</span> | Registered:{' '}
-                          {item.user.registered}
+                          <span>
+                            <CIcon size="xl" icon={cifRo} title="Romania" />
+                          </span>{' '}
+                          | Registered: {formatDate(item.date)}
                         </div>
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.country.flag} title={item.country.name} />
+                        {' '}
+                        <span>
+                          <CIcon size="xl" icon={cilTruck} title="Driver" />
+                        </span>{' '}
+                        {capitalize(item.role)}
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">{item.usage.value}%</div>
+                          <div className="fw-semibold">500%</div>
                           <div className="ms-3">
-                            <small className="text-body-secondary">{item.usage.period}</small>
+                            <small className="text-body-secondary">500</small>
                           </div>
                         </div>
-                        <CProgress thin color={item.usage.color} value={item.usage.value} />
+                        <CProgress thin color="primary" value="500" />
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.payment.icon} />
+                        <CPopover
+                          content={
+                            <CButton
+                              color="danger"
+                              className="text-white"
+                              onClick={() => {
+                                fetchDeleteEmployee(item.id)
+                                  .then(() => {
+                                    setEmployees(
+                                      employees.filter((employee) => employee.id !== item.id),
+                                    )
+                                    console.log('Employee deleted')
+                                    // After deletion, fetch the updated list of employees or remove the item from the state
+                                  })
+                                  .catch((error) => {
+                                    console.error('Error deleting employee:', error)
+                                  })
+                              }}
+                            >
+                              Delete
+                            </CButton>
+                          }
+                          placement="right"
+                          title="Confrim driver deletion"
+                          style={customPopoverStyle}
+                        >
+                          <Link to="#" className="text-danger">
+                            <CIcon size="xl" icon={cilTrash} />
+                          </Link>
+                        </CPopover>
+                        <Link to={`/EmployeeDetails/${item.id}`} className="text-primary">
+                          <CIcon size="xl" icon={cilZoom} />
+                        </Link>
                       </CTableDataCell>
                       <CTableDataCell>
-                        <div className="small text-body-secondary text-nowrap">Last login</div>
-                        <div className="fw-semibold text-nowrap">{item.activity}</div>
+                        <div className="small text-body-secondary text-nowrap mx-auto">
+                          Last login
+                        </div>
+                        <div className="fw-semibold text-nowrap">{item.date}</div>
                       </CTableDataCell>
                     </CTableRow>
                   ))}
