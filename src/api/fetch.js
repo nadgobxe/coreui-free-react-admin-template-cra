@@ -47,6 +47,16 @@ const fetchDeleteTimesheet = async (id) => {
     throw error // This allows the caller of fetchDeleteTimesheet to handle the rejection
   }
 }
+
+const fetchEditTimesheet = async (id, data) => {
+  try {
+    const response = await axios.put(`http://localhost:4005/tsheet/timesheet/${id}`, data)
+    console.log(data)
+    return response.data
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
 // Corrected export statement
 export {
   fetchEmployees,
@@ -54,4 +64,5 @@ export {
   fetchDeleteEmployee,
   fetchGetTimesheet,
   fetchDeleteTimesheet,
+  fetchEditTimesheet,
 }
