@@ -29,6 +29,15 @@ const fetchDeleteEmployee = async (id) => {
   }
 }
 
+const fetchAddTimesheet = async (data) => {
+  try {
+    const response = await axios.post('http://localhost:4005/tsheet/timesheet', data)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const fetchGetTimesheet = async (id) => {
   try {
     const response = await axios.get(`http://localhost:4005/tsheet/timesheet/employee/${id}`)
@@ -65,4 +74,5 @@ export {
   fetchGetTimesheet,
   fetchDeleteTimesheet,
   fetchEditTimesheet,
+  fetchAddTimesheet,
 }

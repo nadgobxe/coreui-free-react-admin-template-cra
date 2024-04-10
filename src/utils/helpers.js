@@ -46,10 +46,11 @@ function formatNumber(number) {
   return Number(number.toFixed(2))
 }
 
-function reduceAmount(object) {
+function reduceAmount(object, propName) {
   let total = 0
-  total += object.reduce((acc, item) => acc + item.totalAmount, 0)
+  total += object.reduce((acc, item) => acc + item[propName], 0)
   let grandTotal = formatNumber(total)
+  console.log('grandTotal', grandTotal)
   return grandTotal
 }
 

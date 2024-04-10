@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { fetchEmployee, fetchGetTimesheet, fetchDeleteTimesheet } from '../api/fetch'
-import { capitalize, formatDate, formatNumber, reduceAmount } from 'src/utils/helpers'
 import {
-  CTable,
-  CContainer,
-  CRow,
-  CCol,
-  CWidgetStatsA,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
-  CButton,
-  CFormInput,
-} from '@coreui/react'
+  fetchEmployee,
+  fetchGetTimesheet,
+  fetchDeleteTimesheet,
+  fetchAddTimesheet,
+} from '../api/fetch'
+import { capitalize, formatDate, formatNumber, reduceAmount } from 'src/utils/helpers'
+import { CTable, CContainer, CRow, CCol, CButton, CFormInput, CAlert } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilArrowTop, cilOptions, cilPencil } from '@coreui/icons'
+import { cilPencil, cilTrash, cilPlus, cilCheck } from '@coreui/icons'
 import { fetchEditTimesheet } from '../api/fetch'
+import EmployeeWidgets from './EmployeeDetailsParts/EmployeeWidgets'
 
 const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null)
   const [timesheet, setTimesheet] = useState(null)
-  const [reduce, setReduce] = useState(0) // Added state to store the reduced amount [1/2
+
+  const [reduce, setReduce] = useState(0) // Added state to store the reduced amount [1/2]
+  const [reduceHours, setReduceHours] = useState(0) // Added state to store the reduced hours [1/2]
+
   const [isShown, setIsShown] = useState(false) // Added state to control when to show the reduced amount [2/2]
   const [editingRowId, setEditingRowId] = useState(null) // Now tracks the ID of the row being edited
   const [edit, setEdit] = useState(false) // Added state to control when to show the edit button [1/2
@@ -32,6 +29,8 @@ const EmployeeDetails = () => {
     job: '', //postcodes (when returing the value from router.get postcodes = entry.job)
     hoursWorked: '',
   }) // Added state to control when to show the edit form
+  const [addTimesheet, setAddTimesheet] = useState(false) // Added state to control when to show the add timesheet form [2/2]
+  const [showAlert, setShowAlert] = useState(true) // Added state to control when to show the alert [1/2]
 
   let { id } = useParams()
 
@@ -39,7 +38,9 @@ const EmployeeDetails = () => {
     fetchGetTimesheet(id).then((data) => {
       console.log(data)
       setTimesheet(data)
-      setReduce(reduceAmount(data)) // Assuming this needs to be updated too
+      setReduce(reduceAmount(data, 'totalAmount')) // Assuming this needs to be updated too
+      setReduceHours(reduceAmount(data, 'hoursWorked')) // Assuming this needs to be updated too
+      console.log(reduceHours)
     })
   }
 
@@ -89,6 +90,28 @@ const EmployeeDetails = () => {
   const handleChange = (e) => {
     const { name, value } = e.target // Destructure the name and value from the event target
     setFormEdit((formEdit) => ({ ...formEdit, [name]: value }))
+  }
+
+  const handleAddTimesheet = async () => {
+    console.log(employee._id)
+    const data = {
+      employee: employee._id,
+      dateWorked: formEdit.dateWorked,
+      colleague: formEdit.colleague,
+      job: formEdit.job,
+      hoursWorked: formEdit.hoursWorked,
+    }
+    console.log(data)
+    await fetchAddTimesheet(data)
+    fetchTimesheetsAndUpdateState()
+    setShowAlert(false) // Make sure the alert is shown
+    handleAlert() // Start the timeout to hide it
+  }
+
+  const handleAlert = () => {
+    setTimeout(() => {
+      setShowAlert(true) // Directly set it to false after 3 seconds
+    }, 3000)
   }
 
   const columns = [
@@ -200,27 +223,39 @@ const EmployeeDetails = () => {
         />
       ),
     total_day_pay: item.totalAmount ? `£${formatNumber(item.totalAmount)}` : 'N/A',
-    edit:
-      editingRowId !== item.tsheetId ? (
-        <CButton
-          onClick={() => {
-            handleEdit(item.tsheetId)
-            console.log(timesheet)
-          }}
-        >
-          <CIcon icon={cilPencil} />
-        </CButton>
-      ) : (
+    edit: (
+      <>
+        {editingRowId !== item.tsheetId ? (
+          <CButton
+            onClick={() => {
+              handleEdit(item.tsheetId)
+              console.log(timesheet)
+            }}
+          >
+            <CIcon icon={cilPencil} />
+          </CButton>
+        ) : (
+          <CButton
+            onClick={async () => {
+              await fetchEditTimesheet(item.tsheetId, formEdit)
+              handleEdit(null)
+              setEdit(!edit)
+            }}
+          >
+            Save
+          </CButton>
+        )}
         <CButton
           onClick={async () => {
-            await fetchEditTimesheet(item.tsheetId, formEdit)
-            handleEdit(null)
+            await fetchDeleteTimesheet(item.tsheetId)
             setEdit(!edit)
           }}
         >
-          Save
+          {' '}
+          <CIcon icon={cilTrash} />{' '}
         </CButton>
-      ),
+      </>
+    ),
   }))
 
   return (
@@ -251,43 +286,95 @@ const EmployeeDetails = () => {
             <CTable columns={columns} items={items} />
           </CCol>
           <CCol md={3}>
-            <CWidgetStatsA
-              className="mb-4"
-              color="primary"
-              value={
-                <>
-                  {
-                    isShown
-                      ? `£${reduce} ` // Show the reduced value when isShown is true
-                      : 'Loading...' // Show "Loading..." initially or while isShown is false
-                  }
-                  <span className="fs-6 fw-normal">
-                    (40.9% <CIcon icon={cilArrowTop} />)
-                  </span>
-                </>
-              }
-              title={
-                <>
-                  {isShown
-                    ? `${employee.name}'s Total Earnings for month ${new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}`
-                    : 'Loading...'}
-                </>
-              }
-              action={
-                <CDropdown alignment="end">
-                  <CDropdownToggle color="transparent" caret={false} className="p-0">
-                    <CIcon icon={cilOptions} className="text-white" />
-                  </CDropdownToggle>
-                  <CDropdownMenu>
-                    <CDropdownItem>Action</CDropdownItem>
-                    <CDropdownItem>Another action</CDropdownItem>
-                    <CDropdownItem>Something else here...</CDropdownItem>
-                    <CDropdownItem disabled>Disabled action</CDropdownItem>
-                  </CDropdownMenu>
-                </CDropdown>
-              }
+            <EmployeeWidgets
+              employee={employee}
+              reduce={reduce}
+              isShown={isShown}
+              reduceHours={reduceHours}
+              timesheet={timesheet}
             />
           </CCol>
+        </CRow>
+      </CContainer>
+      <CContainer>
+        <CRow>
+          <CCol md={9}>
+            {!showAlert ? (
+              <CAlert color="success">A simple success alert—check it out!</CAlert>
+            ) : (
+              <></>
+            )}
+            {!addTimesheet ? (
+              <div className="d-grid gap-2 col-4 mx-auto">
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="rounded-pill"
+                  size="lg"
+                  onClick={() => {
+                    setAddTimesheet(!addTimesheet)
+                  }}
+                >
+                  <CIcon icon={cilPlus} />
+                  <span className="ms-2">Add Timesheet</span>
+                </CButton>
+              </div>
+            ) : (
+              <div className="d-grid gap-2 col-12 mx-auto">
+                <div className="d-flex flex-row gap-0 column-gap-3">
+                  <CFormInput
+                    type="date"
+                    size="sm"
+                    name="dateWorked"
+                    placeholder="Select Date"
+                    aria-label="select date worked"
+                    onChange={handleChange}
+                  />
+
+                  <CFormInput
+                    type="text"
+                    size="sm"
+                    name="colleague"
+                    placeholder="Add Colleagues"
+                    aria-label="add colleagues to timesheet"
+                    onChange={handleChange}
+                  />
+
+                  <CFormInput
+                    type="text"
+                    size="sm"
+                    name="job"
+                    placeholder="Postcodes"
+                    aria-label="add postcodes to timesheet"
+                    onChange={handleChange}
+                  />
+                  <CFormInput
+                    type="text"
+                    size="sm"
+                    name="hoursWorked"
+                    placeholder="Worked Hours"
+                    aria-label="add hours worked to timesheet"
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="rounded-pill"
+                  size="lg"
+                  onClick={async () => {
+                    await handleAddTimesheet()
+                    setAddTimesheet(!addTimesheet)
+                  }}
+                >
+                  <CIcon icon={cilCheck} />
+                  <span className="ms-2">Save</span>
+                </CButton>
+              </div>
+            )}
+          </CCol>
+          <CCol md={3}></CCol>
         </CRow>
       </CContainer>
     </div>
