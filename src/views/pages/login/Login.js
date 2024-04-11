@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -17,20 +17,16 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
 import { useAuth } from './AuthProvider'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../../store/actions/userActions'
 
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { login } = useAuth() // Using the login function from AuthContext
-  const [userData, setUserData] = useState(null)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
-  useEffect(() => {
-    if (userData) {
-      navigate('/dashboard', { state: { user: userData } })
-    }
-  }, [userData]) // Dependency on userData
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -49,10 +45,10 @@ const Login = () => {
             Authorization: `Bearer ${response.data.token}`,
           },
         })
-        console.log('user:', userResponse.data)
+        dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         login()
-        navigate('/dashboard', { state: { user: userResponse.data } }) // Use userResponse.data directly
+        navigate('/dashboard') // Use userResponse.data directly
       } else {
         console.error('Login failed:', response.data.message)
       }

@@ -51,11 +51,6 @@ const EmployeeDetails = () => {
     })
 
     fetchTimesheetsAndUpdateState()
-    // fetchGetTimesheet(id).then((data) => {
-    //   setTimesheet(data)
-    //   setReduce(reduceAmount(data))
-    //   console.log(data)
-    // })
 
     const timer = setTimeout(() => setIsShown(true), 2000)
 

@@ -1,4 +1,3 @@
-import React from 'react' // Note: React import seems unused in this snippet.
 import axios from 'axios'
 
 const fetchEmployees = async () => {

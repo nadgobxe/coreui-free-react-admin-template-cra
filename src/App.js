@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from 'react'
-import { HashRouter, Route, Routes, BrowserRouter } from 'react-router-dom'
+import React, { Suspense, useEffect } from 'react'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AuthProvider } from './views/pages/login/AuthProvider'
 import RequireAuth from './views/pages/login/RequireAuth'

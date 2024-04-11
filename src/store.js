@@ -1,4 +1,6 @@
 import { legacy_createStore as createStore } from 'redux'
+import { combineReducers } from 'redux'
+import userReducer from './store/reducers/userReducer'
 
 const initialState = {
   sidebarShow: true,
@@ -14,5 +16,10 @@ const changeState = (state = initialState, { type, ...rest }) => {
   }
 }
 
-const store = createStore(changeState)
+const rootReducer = combineReducers({
+  changeState: changeState, // Managing sidebar and theme
+  user: userReducer, // Managing user data
+})
+
+const store = createStore(rootReducer)
 export default store
