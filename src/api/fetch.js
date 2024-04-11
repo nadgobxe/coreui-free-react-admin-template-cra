@@ -66,6 +66,16 @@ const fetchEditTimesheet = async (id, data) => {
     console.error(`error: ${error}`)
   }
 }
+
+const fetchEmployeeUserLogin = async (data) => {
+  try {
+    const response = await axios.post('http://localhost:4005/employees/login', data)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // Corrected export statement
 export {
   fetchEmployees,
@@ -75,4 +85,5 @@ export {
   fetchDeleteTimesheet,
   fetchEditTimesheet,
   fetchAddTimesheet,
+  fetchEmployeeUserLogin,
 }

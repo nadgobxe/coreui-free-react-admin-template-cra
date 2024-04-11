@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -16,53 +16,48 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
+import { useAuth } from './AuthProvider'
 
 const Login = () => {
-  const [isloggedIn, setIsLoggedIn] = useState(false)
+  const navigate = useNavigate()
+  const { login } = useAuth() // Using the login function from AuthContext
+  const [userData, setUserData] = useState(null)
 
-  const onLogin = (item) => {
-    setIsLoggedIn(true)
-    localStorage.setItem('token', item)
-  }
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const navigate = useNavigate() // Use the useNavigate hook
+  useEffect(() => {
+    if (userData) {
+      navigate('/dashboard', { state: { user: userData } })
+    }
+  }, [userData]) // Dependency on userData
 
   async function handleSubmit(event) {
-    console.log('handleSubmit')
     event.preventDefault()
-    const formData = new FormData(event.target)
-    const username = formData.get('username')
-    const password = formData.get('password')
-    console.log('username:', username)
 
+    console.log(':', username)
+    console.log('password length:', password.length)
     try {
-      const response = await axios.post(
-        'http://localhost:4005/auth/login',
-        { username, password },
-        { withCredentials: true },
-      )
-      if (response) {
-        const token = response.data.token
-        onLogin(token)
-
-        const apiClient = axios.create({
-          baseURL: 'http://localhost:4005/auth/',
-          headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.post('http://localhost:4005/employees/login', {
+        username,
+        password,
+      })
+      console.log('response:', response.data)
+      if (response.data.token) {
+        const userResponse = await axios.get('http://localhost:4005/employees/loggedin', {
+          headers: {
+            Authorization: `Bearer ${response.data.token}`,
+          },
         })
-
-        await apiClient
-          .get('/loggedin')
-          .then((response) => {
-            console.log(response.data.user.username) ///Here is unclear
-            navigate('/dashboard')
-          })
-          .catch((error) => {
-            console.error(error)
-          })
+        console.log('user:', userResponse.data)
+        localStorage.setItem('token', response.data.token)
+        login()
+        navigate('/dashboard', { state: { user: userResponse.data } }) // Use userResponse.data directly
+      } else {
+        console.error('Login failed:', response.data.message)
       }
     } catch (error) {
-      console.error('Login failed:', error)
-      // Optionally handle error (e.g., display an error message)
+      console.error('Login error:', error.response.data)
     }
   }
 
@@ -86,6 +81,8 @@ const Login = () => {
                         autoComplete="username"
                         type="text"
                         name="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -97,6 +94,8 @@ const Login = () => {
                         placeholder="Password"
                         autoComplete="current-password"
                         name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
