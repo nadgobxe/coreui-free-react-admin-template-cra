@@ -25,7 +25,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
-  cibCcAmex,
   cilTruck,
   cilTrash,
   cibGoogle,
@@ -283,12 +282,12 @@ const Dashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">500%</div>
+                          <div className="fw-semibold">£796.00</div>
                           <div className="ms-3">
-                            <small className="text-body-secondary">500</small>
+                            <small className="text-body-secondary">50</small>
                           </div>
                         </div>
-                        <CProgress thin color="primary" value="500" />
+                        <CProgress thin color="primary" value={75} height={10} />
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
                         <CPopover

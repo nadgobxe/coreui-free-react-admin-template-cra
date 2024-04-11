@@ -274,9 +274,6 @@ const EmployeeDetails = () => {
               Position: <strong>{capitalize(employee?.role)}</strong>
             </p>
           </CCol>
-          <CCol sm="auto">
-            <img src={employee?.picture} alt={employee?.name} height={60} />
-          </CCol>
         </CRow>
       </CContainer>
       {/* Render your employee details based on the id */}
@@ -284,6 +281,82 @@ const EmployeeDetails = () => {
         <CRow>
           <CCol md={9}>
             <CTable columns={columns} items={items} />
+            <CContainer>
+              <CRow>
+                <CCol md={12}>
+                  {!showAlert ? <CAlert color="success">Job added</CAlert> : <></>}
+                  {!addTimesheet ? (
+                    <div className="d-grid gap-2 col-4 mx-auto">
+                      <CButton
+                        color="primary"
+                        variant="outline"
+                        shape="rounded-pill"
+                        size="lg"
+                        onClick={() => {
+                          setAddTimesheet(!addTimesheet)
+                        }}
+                      >
+                        <CIcon icon={cilPlus} />
+                        <span className="ms-2">Add Timesheet</span>
+                      </CButton>
+                    </div>
+                  ) : (
+                    <div className="d-grid gap-2 col-12 mx-auto">
+                      <div className="d-flex flex-row gap-0 column-gap-3">
+                        <CFormInput
+                          type="date"
+                          size="sm"
+                          name="dateWorked"
+                          placeholder="Select Date"
+                          aria-label="select date worked"
+                          onChange={handleChange}
+                        />
+
+                        <CFormInput
+                          type="text"
+                          size="sm"
+                          name="colleague"
+                          placeholder="Add Colleagues"
+                          aria-label="add colleagues to timesheet"
+                          onChange={handleChange}
+                        />
+
+                        <CFormInput
+                          type="text"
+                          size="sm"
+                          name="job"
+                          placeholder="Postcodes"
+                          aria-label="add postcodes to timesheet"
+                          onChange={handleChange}
+                        />
+                        <CFormInput
+                          type="text"
+                          size="sm"
+                          name="hoursWorked"
+                          placeholder="Worked Hours"
+                          aria-label="add hours worked to timesheet"
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      <CButton
+                        color="primary"
+                        variant="outline"
+                        shape="rounded-pill"
+                        size="lg"
+                        onClick={async () => {
+                          await handleAddTimesheet()
+                          setAddTimesheet(!addTimesheet)
+                        }}
+                      >
+                        <CIcon icon={cilCheck} />
+                        <span className="ms-2">Save</span>
+                      </CButton>
+                    </div>
+                  )}
+                </CCol>
+              </CRow>
+            </CContainer>
           </CCol>
           <CCol md={3}>
             <EmployeeWidgets
@@ -294,87 +367,6 @@ const EmployeeDetails = () => {
               timesheet={timesheet}
             />
           </CCol>
-        </CRow>
-      </CContainer>
-      <CContainer>
-        <CRow>
-          <CCol md={9}>
-            {!showAlert ? (
-              <CAlert color="success">A simple success alert—check it out!</CAlert>
-            ) : (
-              <></>
-            )}
-            {!addTimesheet ? (
-              <div className="d-grid gap-2 col-4 mx-auto">
-                <CButton
-                  color="primary"
-                  variant="outline"
-                  shape="rounded-pill"
-                  size="lg"
-                  onClick={() => {
-                    setAddTimesheet(!addTimesheet)
-                  }}
-                >
-                  <CIcon icon={cilPlus} />
-                  <span className="ms-2">Add Timesheet</span>
-                </CButton>
-              </div>
-            ) : (
-              <div className="d-grid gap-2 col-12 mx-auto">
-                <div className="d-flex flex-row gap-0 column-gap-3">
-                  <CFormInput
-                    type="date"
-                    size="sm"
-                    name="dateWorked"
-                    placeholder="Select Date"
-                    aria-label="select date worked"
-                    onChange={handleChange}
-                  />
-
-                  <CFormInput
-                    type="text"
-                    size="sm"
-                    name="colleague"
-                    placeholder="Add Colleagues"
-                    aria-label="add colleagues to timesheet"
-                    onChange={handleChange}
-                  />
-
-                  <CFormInput
-                    type="text"
-                    size="sm"
-                    name="job"
-                    placeholder="Postcodes"
-                    aria-label="add postcodes to timesheet"
-                    onChange={handleChange}
-                  />
-                  <CFormInput
-                    type="text"
-                    size="sm"
-                    name="hoursWorked"
-                    placeholder="Worked Hours"
-                    aria-label="add hours worked to timesheet"
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <CButton
-                  color="primary"
-                  variant="outline"
-                  shape="rounded-pill"
-                  size="lg"
-                  onClick={async () => {
-                    await handleAddTimesheet()
-                    setAddTimesheet(!addTimesheet)
-                  }}
-                >
-                  <CIcon icon={cilCheck} />
-                  <span className="ms-2">Save</span>
-                </CButton>
-              </div>
-            )}
-          </CCol>
-          <CCol md={3}></CCol>
         </CRow>
       </CContainer>
     </div>
