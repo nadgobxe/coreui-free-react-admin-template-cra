@@ -9,6 +9,7 @@ import './scss/style.scss'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
+const EmployeeDetails = React.lazy(() => import('./myComponents/EmployeeDetails'))
 
 // Pages
 const Login = React.lazy(() => import('./views/pages/login/Login'))
@@ -55,8 +56,16 @@ const App = () => {
               path="*"
               name="Home"
               element={
-                <RequireAuth>
+                <RequireAuth allowedRoles={['admin']}>
                   <DefaultLayout />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/EmployeeDetails/:id"
+              element={
+                <RequireAuth allowedRoles={['employee']}>
+                  <EmployeeDetails />
                 </RequireAuth>
               }
             />
