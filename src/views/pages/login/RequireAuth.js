@@ -6,7 +6,6 @@ import { useAuth } from './AuthProvider'
 const RequireAuth = ({ children, allowedRoles }) => {
   const { isLoggedIn, user } = useAuth()
   const location = useLocation()
-  const params = useParams() // If params are not used, consider removing it to clean up the code
 
   if (!isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />
