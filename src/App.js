@@ -9,6 +9,7 @@ import './scss/style.scss'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
+const EmployeeLayout = React.lazy(() => import('./layout/EmployeeLayout'))
 const EmployeeDetails = React.lazy(() => import('./myComponents/EmployeeDetails'))
 
 // Pages
@@ -22,6 +23,7 @@ const App = () => {
 
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
+  const user = useSelector((state) => state.user || {})
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
@@ -62,10 +64,11 @@ const App = () => {
               }
             />
             <Route
-              path="/EmployeeDetails/:id"
+              path={`/employee/*`}
+              name="Employee"
               element={
-                <RequireAuth allowedRoles={['employee', 'admin']}>
-                  <EmployeeDetails />
+                <RequireAuth allowedRoles={['employee']}>
+                  <EmployeeLayout />
                 </RequireAuth>
               }
             />

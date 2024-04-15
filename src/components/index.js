@@ -7,12 +7,14 @@ import AppSidebar from './AppSidebar'
 import DocsCallout from './DocsCallout'
 import DocsLink from './DocsLink'
 import DocsExample from './DocsExample'
+import EmployeeAppContent from './EmployeeAppContent'
 
 export {
   AppBreadcrumb,
   AppContent,
   AppFooter,
   AppHeader,
+  EmployeeAppContent,
   AppHeaderDropdown,
   AppSidebar,
   DocsCallout,

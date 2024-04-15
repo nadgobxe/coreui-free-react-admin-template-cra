@@ -12,20 +12,15 @@ const RequireAuth = ({ children, allowedRoles }) => {
   }
 
   if (!allowedRoles.includes(user?.user.privilege)) {
-    return (
-      <Navigate
-        to={user?.user.privilege === 'admin' ? '/dashboard' : `/EmployeeDetails/${user.user._id}`}
-        replace
-      />
-    )
+    return <Navigate to={user?.user.privilege === 'admin' ? '/' : `/employee`} replace />
   }
 
-  if (
-    user?.user.privilege === 'employee' &&
-    location.pathname !== `/EmployeeDetails/${user.user._id}`
-  ) {
-    return <Navigate to={`/EmployeeDetails/${user.user._id}`} replace />
-  }
+  // if (
+  //   user?.user.privilege === 'employee' &&
+  //   location.pathname !== `/EmployeeDetails/${user.user._id}`
+  // ) {
+  //   return <Navigate to={`/EmployeeDetails/${user.user._id}`} replace />
+  // }
 
   return children
 }

@@ -51,8 +51,10 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 //My Routes
+const EmployeeLayout = React.lazy(() => import('./layout/EmployeeLayout'))
 const EmployeeDetails = React.lazy(() => import('./myComponents/EmployeeDetails'))
 const Login = React.lazy(() => import('./views/pages/login/Login'))
+const EmployeeDashboard = React.lazy(() => import('./views/dashboard/EmployeeDashboard'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -99,9 +101,13 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  //My Routes
-  { path: '/EmployeeDetails/:id', name: 'EmployeeDetails', element: EmployeeDetails },
-  { path: '/login', name: 'Login', element: Login },
 ]
 
-export default routes
+const employeeRoutes = [
+  { path: '/employee', exact: true, name: 'EmployeeLayout', element: EmployeeLayout },
+  { path: '/employee-details/:id', name: 'EmployeeDetails', element: EmployeeDetails },
+  { path: '/login', name: 'Login', element: Login },
+  { path: '/employee-dashboard', name: 'EmployeeDashboard', element: EmployeeDashboard },
+]
+
+export { routes, employeeRoutes }

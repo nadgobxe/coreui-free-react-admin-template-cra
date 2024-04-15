@@ -48,11 +48,8 @@ const Login = () => {
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         login()
-        navigate(
-          userResponse.data.privilege === 'admin'
-            ? '/dashboard'
-            : `/EmployeeDetails/${userResponse.data._id}`,
-        )
+        console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
+        navigate('/dashboard')
       } else {
         console.error('Login failed:', response.data.message)
       }
