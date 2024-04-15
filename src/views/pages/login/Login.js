@@ -45,11 +45,15 @@ const Login = () => {
             Authorization: `Bearer ${response.data.token}`,
           },
         })
-        dispatch(setUser({ user: userResponse.data, token: response.data.token }))
-        localStorage.setItem('token', response.data.token)
+        await dispatch(setUser({ user: userResponse.data, token: response.data.token }))
+        await localStorage.setItem('token', response.data.token)
         login()
-        console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
-        navigate('/dashboard')
+        await console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
+        await navigate(
+          userResponse.data.privilege === 'admin'
+            ? '/dashboard'
+            : `/EmployeeDetails/${userResponse.data._id}`,
+        )
       } else {
         console.error('Login failed:', response.data.message)
       }
