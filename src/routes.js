@@ -62,9 +62,8 @@ const routes = [
 ]
 
 const employeeRoutes = [
-  { path: '/employee', exact: true, name: 'EmployeeLayout', element: EmployeeLayout },
   { path: '/employee/employee-details/:id', name: 'EmployeeDetails', element: EmployeeDetails },
-  { path: '/employee/dashboard', name: 'EmployeeDashboard', element: EmployeeDashboard },
+  { path: 'dashboard', name: 'EmployeeDashboard', element: EmployeeDashboard },
 ]
 
 export { routes, employeeRoutes }
