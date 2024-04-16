@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppSidebar, AppFooter, AppHeader, EmployeeAppContent } from '../components/index'
+import { AppSidebar, AppFooter, EmployeeAppHeader, EmployeeAppContent } from '../components/index'
 import EmployeeDashboard from 'src/views/dashboard/EmployeeDashboard'
 
 const EmployeeLayout = () => {
@@ -8,7 +8,7 @@ const EmployeeLayout = () => {
     <div>
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">
-        <AppHeader />
+        <EmployeeAppHeader />
         <div className="body flex-grow-1">
           <EmployeeAppContent />
         </div>

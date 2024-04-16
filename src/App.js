@@ -64,7 +64,7 @@ const App = () => {
               }
             />
             <Route
-              path={`/employee/*`}
+              path="employee/*"
               name="Employee"
               element={
                 <RequireAuth allowedRoles={['employee']}>

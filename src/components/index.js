@@ -8,6 +8,8 @@ import DocsCallout from './DocsCallout'
 import DocsLink from './DocsLink'
 import DocsExample from './DocsExample'
 import EmployeeAppContent from './EmployeeAppContent'
+import EmployeeAppBreadcrumb from './EmployeeAppBreadcrumb'
+import EmployeeAppHeader from './EmployeeAppHeader'
 
 export {
   AppBreadcrumb,
@@ -16,6 +18,8 @@ export {
   AppHeader,
   EmployeeAppContent,
   AppHeaderDropdown,
+  EmployeeAppBreadcrumb,
+  EmployeeAppHeader,
   AppSidebar,
   DocsCallout,
   DocsLink,

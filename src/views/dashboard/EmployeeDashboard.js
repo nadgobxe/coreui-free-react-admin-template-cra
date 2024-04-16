@@ -321,7 +321,7 @@ const EmployeeDashboard = () => {
                             <CIcon size="xl" icon={cilTrash} />
                           </Link>
                         </CPopover>
-                        <Link to={`/employee/employee-details/${item.id}`} className="text-primary">
+                        <Link to={`/EmployeeDetails/${item.id}`} className="text-primary">
                           <CIcon size="xl" icon={cilZoom} />
                         </Link>
                       </CTableDataCell>
