@@ -32,7 +32,6 @@ const EmployeeAppContent = () => {
               )
             )
           })}
-          {console.log('hello world')}
         </Routes>
       </Suspense>
     </CContainer>

@@ -50,9 +50,16 @@ const Login = () => {
         login()
         await console.log('userResponse:', userResponse.data.user.privilege, userResponse.data._id)
         console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
-        await navigate(
-          userResponse.data.user.privilege === 'admin' ? '/dashboard' : `/employee/dashboard`,
-        )
+
+        let path = ''
+        if (userResponse.data.user.privilege === 'admin') {
+          path = '/dashboard'
+        } else if (userResponse.data.user.privilege === 'employee') {
+          path = '/employee/dashboard/'
+        }
+
+        console.log('Navigating to:', path)
+        await navigate(path) // Navigate to the computed path
       } else {
         console.error('Login failed:', response.data.message)
       }
