@@ -1,7 +1,8 @@
-import React, { Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import React, { Suspense, useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
 import { useSelector } from 'react-redux'
+import EmployeeDashboard from '../views/dashboard/EmployeeDashboard'
 
 // routes config
 import { employeeRoutes } from '../routes'
@@ -9,8 +10,11 @@ import { employeeRoutes } from '../routes'
 const EmployeeAppContent = () => {
   const user = useSelector((state) => state.user || {})
   console.log('EmployeeAppContent')
+  const location = useLocation()
+  useEffect(() => {
+    console.log('Current path:', location.pathname)
+  }, [location])
 
-  console.log(user.user)
   return (
     <CContainer className="px-4" lg>
       <Suspense fallback={<CSpinner color="primary" />}>
@@ -28,10 +32,7 @@ const EmployeeAppContent = () => {
               )
             )
           })}
-          <Route
-            path={`/employee-dashboard`}
-            element={<Navigate to="/employee-dashboard" replace />}
-          />
+          {console.log('hello world')}
         </Routes>
       </Suspense>
     </CContainer>

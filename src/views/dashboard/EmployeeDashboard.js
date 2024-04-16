@@ -94,6 +94,7 @@ const EmployeeDashboard = () => {
 
   return (
     <>
+      {console.log('EmployeeDashboard')}
       <WidgetsDropdown className="mb-4" />
       <CCard className="mb-4">
         <CCardBody>
@@ -320,7 +321,7 @@ const EmployeeDashboard = () => {
                             <CIcon size="xl" icon={cilTrash} />
                           </Link>
                         </CPopover>
-                        <Link to={`/EmployeeDetails/${item.id}`} className="text-primary">
+                        <Link to={`/employee/employee-details/${item.id}`} className="text-primary">
                           <CIcon size="xl" icon={cilZoom} />
                         </Link>
                       </CTableDataCell>

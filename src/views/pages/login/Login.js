@@ -48,11 +48,10 @@ const Login = () => {
         await dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         await localStorage.setItem('token', response.data.token)
         login()
-        await console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
+        await console.log('userResponse:', userResponse.data.user.privilege, userResponse.data._id)
+        console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
         await navigate(
-          userResponse.data.privilege === 'admin'
-            ? '/dashboard'
-            : `/EmployeeDetails/${userResponse.data._id}`,
+          userResponse.data.user.privilege === 'admin' ? '/dashboard' : `/employee/dashboard`,
         )
       } else {
         console.error('Login failed:', response.data.message)
