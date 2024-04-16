@@ -50,12 +50,12 @@ const App = () => {
           }
         >
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/404" element={<Page404 />} />
             <Route path="/500" element={<Page500 />} />
             <Route
-              path="*"
+              path="/admin"
               name="Home"
               element={
                 <RequireAuth allowedRoles={['admin']}>
@@ -64,7 +64,7 @@ const App = () => {
               }
             />
             <Route
-              path="employee/*"
+              path="/employee*"
               name="Employee"
               element={
                 <RequireAuth allowedRoles={['employee']}>

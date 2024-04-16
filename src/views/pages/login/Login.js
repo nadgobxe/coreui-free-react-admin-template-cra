@@ -53,7 +53,7 @@ const Login = () => {
 
         let path = ''
         if (userResponse.data.user.privilege === 'admin') {
-          path = '/dashboard'
+          path = '/admin/dashboard/'
         } else if (userResponse.data.user.privilege === 'employee') {
           path = '/employee/dashboard/'
         }
