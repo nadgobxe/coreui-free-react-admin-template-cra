@@ -10,11 +10,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     setIsLoggedIn(true)
-    // No need to set roles here as Redux will hold the user state and privilege will be derived from there
+    localStorage.setItem('isLoggedIn', '1')
   }
 
   const logout = () => {
     setIsLoggedIn(false)
+    localStorage.removeItem('isLoggedIn')
   }
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 import { routes } from '../routes'
 
@@ -7,9 +7,14 @@ import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
+  console.log(`currentLocation: ${currentLocation}`)
 
   const getRouteName = (pathname, routes) => {
-    const currentRoute = routes.find((route) => route.path === pathname)
+    const currentRoute = routes.find((route) => {
+      const routePath = route.path.replace(/\/:id$/, '')
+      const currentPath = pathname.replace(/\/:id$/, '')
+      return routePath === currentPath
+    })
     return currentRoute ? currentRoute.name : false
   }
 
@@ -17,30 +22,34 @@ const AppBreadcrumb = () => {
     const breadcrumbs = []
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
-      const routeName = getRouteName(currentPathname, routes)
-      routeName &&
-        breadcrumbs.push({
-          pathname: currentPathname,
-          name: routeName,
-          active: index + 1 === array.length ? true : false,
-        })
+      const routeName = getRouteName(currentPathname, routes) || curr
+      breadcrumbs.push({
+        pathname: currentPathname,
+        name: routeName,
+        active: index + 1 === array.length ? true : false,
+      })
       return currentPathname
     })
     return breadcrumbs
   }
 
   const breadcrumbs = getBreadcrumbs(currentLocation)
+  console.log(`breadcrumbs: ${breadcrumbs}`)
 
   return (
     <CBreadcrumb className="my-0">
-      <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
+      <CBreadcrumbItem>
+        <Link path="/admin/dashboard/">Home</Link>
+      </CBreadcrumbItem>
       {breadcrumbs.map((breadcrumb, index) => {
         return (
-          <CBreadcrumbItem
-            {...(breadcrumb.active ? { active: true } : { href: breadcrumb.pathname })}
-            key={index}
-          >
-            {breadcrumb.name}
+          <CBreadcrumbItem key={index} active={breadcrumb.active}>
+            {console.log(`breadcrumb11: ${breadcrumb.name}`)}
+            {breadcrumb.active ? (
+              breadcrumb.name
+            ) : (
+              <Link to={breadcrumb.path}>{breadcrumb.name}</Link>
+            )}
           </CBreadcrumbItem>
         )
       })}

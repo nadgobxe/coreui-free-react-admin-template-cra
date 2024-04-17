@@ -57,8 +57,9 @@ const Login = React.lazy(() => import('./views/pages/login/Login'))
 const EmployeeDashboard = React.lazy(() => import('./views/dashboard/EmployeeDashboard'))
 
 const routes = [
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/employee-details/:id', name: 'EmployeeDetails', element: EmployeeDetails },
+  { path: '/', name: 'Home', element: Dashboard },
+  { path: 'dashboard', name: 'Dashboard', element: Dashboard },
+  { path: 'employee-details/:id', name: 'EmployeeDetails', element: EmployeeDetails },
 ]
 
 const employeeRoutes = [

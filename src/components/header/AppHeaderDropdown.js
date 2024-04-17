@@ -27,17 +27,20 @@ import { useSelector } from 'react-redux'
 
 const AppHeaderDropdown = () => {
   const user = useSelector((state) => state.user.user)
+  const fallback = {
+    src: avatar8,
+  }
 
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
-        <CAvatar src={user.user.picture} size="md" />
+        <CAvatar src={user ? user.user.name : fallback.src} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
         <CDropdownItem href="#">
           <CIcon icon={cilBell} className="me-2" />
-          Welcome, {user.user.name}!
+          Welcome, {user ? user.user.name : <>Guest</>} !
           <CBadge color="info" className="ms-2">
             42
           </CBadge>

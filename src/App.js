@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AuthProvider } from './views/pages/login/AuthProvider'
 import RequireAuth from './views/pages/login/RequireAuth'
@@ -50,7 +50,8 @@ const App = () => {
           }
         >
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Navigate to="login" replace />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/404" element={<Page404 />} />
             <Route path="/500" element={<Page500 />} />

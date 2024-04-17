@@ -46,10 +46,13 @@ import MainChart from './MainChart'
 
 const Dashboard = () => {
   const [employees, setEmployees] = useState([])
+  const [backUpEmployees, setBackUpEmployees] = useState([])
 
   useEffect(() => {
     fetchEmployees().then((data) => {
       setEmployees(data.users)
+      setBackUpEmployees(localStorage.getItem('user'))
+      console.log(`backUpEmployees: ${backUpEmployees}`)
       console.log(data.period)
     })
   }, [])
@@ -94,7 +97,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <WidgetsDropdown className="mb-4" />
+      {/* <WidgetsDropdown className="mb-4" />
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
@@ -148,16 +151,16 @@ const Dashboard = () => {
             ))}
           </CRow>
         </CCardFooter>
-      </CCard>
-      <WidgetsBrand className="mb-4" withCharts />
+      </CCard> */}
+      {/* <WidgetsBrand className="mb-4" withCharts /> */}
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
+            <CCardHeader>Employees {' & '} Timesheets</CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol xs={12} md={6} xl={6}>
-                  <CRow>
+                  {/* <CRow>
                     <CCol xs={6}>
                       <div className="border-start border-start-4 border-start-info py-1 px-3">
                         <div className="text-body-secondary text-truncate small">New Clients</div>
@@ -172,9 +175,9 @@ const Dashboard = () => {
                         <div className="fs-5 fw-semibold">22,643</div>
                       </div>
                     </CCol>
-                  </CRow>
+                  </CRow> */}
                   <hr className="mt-0" />
-                  {progressGroupExample1.map((item, index) => (
+                  {/* {progressGroupExample1.map((item, index) => (
                     <div className="progress-group mb-4" key={index}>
                       <div className="progress-group-prepend">
                         <span className="text-body-secondary small">{item.title}</span>
@@ -184,9 +187,9 @@ const Dashboard = () => {
                         <CProgress thin color="danger" value={item.value2} />
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </CCol>
-                <CCol xs={12} md={6} xl={6}>
+                {/* <CCol xs={12} md={6} xl={6}>
                   <CRow>
                     <CCol xs={6}>
                       <div className="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
@@ -234,7 +237,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   ))}
-                </CCol>
+                </CCol> */}
               </CRow>
 
               <br />
@@ -259,79 +262,154 @@ const Dashboard = () => {
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {employees.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index}>
-                      <CTableDataCell className="text-center">
-                        <CAvatar size="md" src={item.picture} status="success" />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div>{item.name}</div>
-                        <div className="small text-body-secondary text-nowrap">
-                          <span>
-                            <CIcon size="xl" icon={cifRo} title="Romania" />
-                          </span>{' '}
-                          | Registered: {formatDate(item.date)}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        {' '}
-                        <span>
-                          <CIcon size="xl" icon={cilTruck} title="Driver" />
-                        </span>{' '}
-                        {capitalize(item.role)}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">£796.00</div>
-                          <div className="ms-3">
-                            <small className="text-body-secondary">50</small>
+                  {employees &&
+                    employees.map((item, index) => (
+                      <CTableRow v-for="item in tableItems" key={index}>
+                        <CTableDataCell className="text-center">
+                          <CAvatar size="md" src={item.picture} status="success" />
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div>{item.name}</div>
+                          <div className="small text-body-secondary text-nowrap">
+                            <span>
+                              <CIcon size="xl" icon={cifRo} title="Romania" />
+                            </span>{' '}
+                            | Registered: {formatDate(item.date)}
                           </div>
-                        </div>
-                        <CProgress thin color="primary" value={75} height={10} />
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CPopover
-                          content={
-                            <CButton
-                              color="danger"
-                              className="text-white"
-                              onClick={() => {
-                                fetchDeleteEmployee(item.id)
-                                  .then(() => {
-                                    setEmployees(
-                                      employees.filter((employee) => employee.id !== item.id),
-                                    )
-                                    console.log('Employee deleted')
-                                    // After deletion, fetch the updated list of employees or remove the item from the state
-                                  })
-                                  .catch((error) => {
-                                    console.error('Error deleting employee:', error)
-                                  })
-                              }}
-                            >
-                              Delete
-                            </CButton>
-                          }
-                          placement="right"
-                          title="Confrim driver deletion"
-                          style={customPopoverStyle}
-                        >
-                          <Link to="#" className="text-danger">
-                            <CIcon size="xl" icon={cilTrash} />
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          {' '}
+                          <span>
+                            <CIcon size="xl" icon={cilTruck} title="Driver" />
+                          </span>{' '}
+                          {capitalize(item.role)}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div className="d-flex justify-content-between text-nowrap">
+                            <div className="fw-semibold">£796.00</div>
+                            <div className="ms-3">
+                              <small className="text-body-secondary">50</small>
+                            </div>
+                          </div>
+                          <CProgress thin color="primary" value={75} height={10} />
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          <CPopover
+                            content={
+                              <CButton
+                                color="danger"
+                                className="text-white"
+                                onClick={() => {
+                                  fetchDeleteEmployee(item.id)
+                                    .then(() => {
+                                      setEmployees(
+                                        employees.filter((employee) => employee.id !== item.id),
+                                      )
+                                      console.log('Employee deleted')
+                                      // After deletion, fetch the updated list of employees or remove the item from the state
+                                    })
+                                    .catch((error) => {
+                                      console.error('Error deleting employee:', error)
+                                    })
+                                }}
+                              >
+                                Delete
+                              </CButton>
+                            }
+                            placement="right"
+                            title="Confrim driver deletion"
+                            style={customPopoverStyle}
+                          >
+                            <Link to="#" className="text-danger">
+                              <CIcon size="xl" icon={cilTrash} />
+                            </Link>
+                          </CPopover>
+                          <Link to={`/admin/employee-details/${item.id}`} className="text-primary">
+                            <CIcon size="xl" icon={cilZoom} />
                           </Link>
-                        </CPopover>
-                        <Link to={`/EmployeeDetails/${item.id}`} className="text-primary">
-                          <CIcon size="xl" icon={cilZoom} />
-                        </Link>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-body-secondary text-nowrap mx-auto">
-                          Last login
-                        </div>
-                        <div className="fw-semibold text-nowrap">{item.date}</div>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div className="small text-body-secondary text-nowrap mx-auto">
+                            Last login
+                          </div>
+                          <div className="fw-semibold text-nowrap">{item.date}</div>
+                        </CTableDataCell>
+                      </CTableRow>
+                    ))}
+                  {!employees &&
+                    backUpEmployees.map((item, index) => (
+                      <CTableRow v-for="item in tableItems" key={index}>
+                        <CTableDataCell className="text-center">
+                          <CAvatar size="md" src={item.picture} status="success" />
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div>{item.name}</div>
+                          <div className="small text-body-secondary text-nowrap">
+                            <span>
+                              <CIcon size="xl" icon={cifRo} title="Romania" />
+                            </span>{' '}
+                            | Registered: {formatDate(item.date)}
+                          </div>
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          {' '}
+                          <span>
+                            <CIcon size="xl" icon={cilTruck} title="Driver" />
+                          </span>{' '}
+                          {capitalize(item.role)}
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div className="d-flex justify-content-between text-nowrap">
+                            <div className="fw-semibold">£796.00</div>
+                            <div className="ms-3">
+                              <small className="text-body-secondary">50</small>
+                            </div>
+                          </div>
+                          <CProgress thin color="primary" value={75} height={10} />
+                        </CTableDataCell>
+                        <CTableDataCell className="text-center">
+                          <CPopover
+                            content={
+                              <CButton
+                                color="danger"
+                                className="text-white"
+                                onClick={() => {
+                                  fetchDeleteEmployee(item.id)
+                                    .then(() => {
+                                      setEmployees(
+                                        employees.filter((employee) => employee.id !== item.id),
+                                      )
+                                      console.log('Employee deleted')
+                                      // After deletion, fetch the updated list of employees or remove the item from the state
+                                    })
+                                    .catch((error) => {
+                                      console.error('Error deleting employee:', error)
+                                    })
+                                }}
+                              >
+                                Delete
+                              </CButton>
+                            }
+                            placement="right"
+                            title="Confrim driver deletion"
+                            style={customPopoverStyle}
+                          >
+                            <Link to="#" className="text-danger">
+                              <CIcon size="xl" icon={cilTrash} />
+                            </Link>
+                          </CPopover>
+                          <Link to={`/admin/employee-details/${item.id}`} className="text-primary">
+                            <CIcon size="xl" icon={cilZoom} />
+                          </Link>
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <div className="small text-body-secondary text-nowrap mx-auto">
+                            Last login
+                          </div>
+                          <div className="fw-semibold text-nowrap">{item.date}</div>
+                        </CTableDataCell>
+                      </CTableRow>
+                    ))}
                 </CTableBody>
               </CTable>
             </CCardBody>

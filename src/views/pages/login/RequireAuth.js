@@ -7,16 +7,16 @@ const RequireAuth = ({ children, allowedRoles }) => {
   const { isLoggedIn, user } = useAuth()
   const location = useLocation()
 
-  if (!isLoggedIn) {
-    return <Navigate to="/" state={{ from: location }} replace />
+  if (!isLoggedIn && localStorage.getItem('isLoggedIn') !== '1') {
+    return <Navigate to="/login" state={{ from: location }} replace />
   }
 
-  if (!allowedRoles[0].includes(user?.user.privilege)) {
-    console.log(allowedRoles[0])
-    console.log(user?.user.privilege)
-    console.log(allowedRoles.includes(user?.user.privilege))
-    return <Navigate to="/unauthorized" replace />
-  }
+  // if (!allowedRoles[0].includes(user?.user.privilege)) {
+  //   console.log(allowedRoles[0])
+  //   console.log(user?.user.privilege)
+  //   console.log(allowedRoles.includes(user?.user.privilege))
+  //   return <Navigate to="/unauthorized" replace />
+  // }
 
   if (allowedRoles[0].includes(user?.user.privilege)) {
     return children

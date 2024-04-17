@@ -45,12 +45,10 @@ const Login = () => {
             Authorization: `Bearer ${response.data.token}`,
           },
         })
-        await dispatch(setUser({ user: userResponse.data, token: response.data.token }))
-        await localStorage.setItem('token', response.data.token)
+        dispatch(setUser({ user: userResponse.data, token: response.data.token }))
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(userResponse.data))
         login()
-        await console.log('userResponse:', userResponse.data.user.privilege, userResponse.data._id)
-        console.log('userResponse:', userResponse.data.privilege, userResponse.data._id)
-
         let path = ''
         if (userResponse.data.user.privilege === 'admin') {
           path = '/admin/dashboard/'
