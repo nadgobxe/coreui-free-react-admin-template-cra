@@ -34,17 +34,20 @@ const Login = () => {
     console.log(':', username)
     console.log('password length:', password.length)
     try {
-      const response = await axios.post('http://localhost:4005/employees/login', {
+      const response = await axios.post('https://holdemserver4-pxttn88c.b4a.run/employees/login', {
         username,
         password,
       })
       console.log('response:', response.data)
       if (response.data.token) {
-        const userResponse = await axios.get('http://localhost:4005/employees/loggedin', {
-          headers: {
-            Authorization: `Bearer ${response.data.token}`,
+        const userResponse = await axios.get(
+          'https://holdemserver4-pxttn88c.b4a.run/employees/loggedin',
+          {
+            headers: {
+              Authorization: `Bearer ${response.data.token}`,
+            },
           },
-        })
+        )
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(userResponse.data))
