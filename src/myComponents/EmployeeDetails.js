@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   fetchEmployee,
@@ -34,15 +34,15 @@ const EmployeeDetails = () => {
 
   let { id } = useParams()
 
-  const fetchTimesheetsAndUpdateState = () => {
+  const fetchTimesheetsAndUpdateState = useCallback(() => {
     fetchGetTimesheet(id).then((data) => {
       console.log(data)
       setTimesheet(data)
-      setReduce(reduceAmount(data, 'totalAmount')) // Assuming this needs to be updated too
-      setReduceHours(reduceAmount(data, 'hoursWorked')) // Assuming this needs to be updated too
+      setReduce(reduceAmount(data, 'totalAmount'))
+      setReduceHours(reduceAmount(data, 'hoursWorked'))
       console.log(reduceHours)
     })
-  }
+  }, [id]) // Add other dependencies of fetchTimesheetsAndUpdateState here if there are any
 
   useEffect(() => {
     fetchEmployee(id).then((data) => {
@@ -55,7 +55,7 @@ const EmployeeDetails = () => {
     const timer = setTimeout(() => setIsShown(true), 2000)
 
     return () => clearTimeout(timer)
-  }, [id, edit, fetchTimesheetsAndUpdateState]) // This effect will run every time the id changes
+  }, [id, edit, fetchTimesheetsAndUpdateState])
 
   const handleEdit = (id) => {
     console.log(`id: ${id}`)

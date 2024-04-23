@@ -21,20 +21,7 @@ import {
   CPopover,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilTruck,
-  cilTrash,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifRo,
-  cifPl,
-  cilZoom,
-  cibTwitter,
-  cilPeople,
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
+import { cilTruck, cilTrash, cifRo, cilZoom, cilPeople } from '@coreui/icons'
 
 // import WidgetsBrand from '../widgets/WidgetsBrand'
 // import WidgetsDropdown from '../widgets/WidgetsDropdown'
@@ -47,11 +34,18 @@ const Dashboard = () => {
   useEffect(() => {
     fetchEmployees().then((data) => {
       setEmployees(data.users)
-      setBackUpEmployees(localStorage.getItem('user'))
-      console.log(`backUpEmployees: ${backUpEmployees}`)
-      console.log(data.period)
+      // Assuming you want to set `backUpEmployees` from localStorage
+      const storedUsers = localStorage.getItem('user')
+      setBackUpEmployees(storedUsers ? JSON.parse(storedUsers) : null)
+
+      // After setting states, you should use another effect or a callback to see updated states.
     })
-  }, [])
+  }, []) // Correctly leave this dependency array empty for initial fetch only
+
+  useEffect(() => {
+    // This effect will log `backUpEmployees` whenever it changes, correctly reflecting the updated state.
+    console.log(`backUpEmployees: ${backUpEmployees}`)
+  }, [backUpEmployees]) // Depend on `backUpEmployees` to see changes
   const customPopoverStyle = {
     '--cui-popover-max-width': '200px',
     '--cui-popover-border-color': 'var(--cui-primary)',
