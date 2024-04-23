@@ -31,7 +31,6 @@ import {
   cibFacebook,
   cibLinkedin,
   cifRo,
-  cifPl,
   cilZoom,
   cibTwitter,
   cilCloudDownload,

@@ -55,7 +55,7 @@ const EmployeeDetails = () => {
     const timer = setTimeout(() => setIsShown(true), 2000)
 
     return () => clearTimeout(timer)
-  }, [id, edit]) // This effect will run every time the id changes
+  }, [id, edit, fetchTimesheetsAndUpdateState]) // This effect will run every time the id changes
 
   const handleEdit = (id) => {
     console.log(`id: ${id}`)

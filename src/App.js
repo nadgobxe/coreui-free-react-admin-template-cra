@@ -10,7 +10,6 @@ import './scss/style.scss'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 const EmployeeLayout = React.lazy(() => import('./layout/EmployeeLayout'))
-const EmployeeDetails = React.lazy(() => import('./myComponents/EmployeeDetails'))
 
 // Pages
 const Login = React.lazy(() => import('./views/pages/login/Login'))
@@ -23,7 +22,6 @@ const App = () => {
 
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
-  const user = useSelector((state) => state.user || {})
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])

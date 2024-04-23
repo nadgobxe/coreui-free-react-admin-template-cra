@@ -50,7 +50,7 @@ export default function EmployeeWidgets({ reduce, employee, isShown, reduceHours
 
     fetchEmployee()
     // Log the `employee` prop to see its value
-  }, [employee, reduce, reduceHours, timesheet]) // Depend on `employee` if it's a prop that could change
+  }, [employee, reduce, reduceHours, timesheet, payDividedByTotalHours, payPerHour, totalPay]) // Depend on `employee` if it's a prop that could change
 
   console.log(employeeProp)
   console.log(`isShown: ${isShown} reduce: ${reduce}  employee: ${employee}`)

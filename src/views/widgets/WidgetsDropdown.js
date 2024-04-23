@@ -11,7 +11,7 @@ import {
   CWidgetStatsA,
 } from '@coreui/react'
 import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
+import { CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilGroup, cilArrowTop, cilOptions, cilArrowBottom } from '@coreui/icons'
 

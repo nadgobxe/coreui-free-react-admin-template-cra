@@ -1,6 +1,5 @@
 import React from 'react'
 import { AppSidebar, AppFooter, EmployeeAppHeader, EmployeeAppContent } from '../components/index'
-import EmployeeDashboard from 'src/views/dashboard/EmployeeDashboard'
 
 const EmployeeLayout = () => {
   console.log('EmployeeLayout')
