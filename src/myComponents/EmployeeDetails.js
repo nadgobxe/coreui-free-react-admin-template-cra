@@ -38,11 +38,13 @@ const EmployeeDetails = () => {
     fetchGetTimesheet(id).then((data) => {
       console.log(data)
       setTimesheet(data)
-      setReduce(reduceAmount(data, 'totalAmount'))
-      setReduceHours(reduceAmount(data, 'hoursWorked'))
-      console.log(reduceHours)
+      const reducedTotalAmount = reduceAmount(data, 'totalAmount')
+      const reducedHoursWorked = reduceAmount(data, 'hoursWorked')
+      setReduce(reducedTotalAmount)
+      setReduceHours(reducedHoursWorked)
+      console.log(reducedHoursWorked) // Update to log immediately after setting
     })
-  }, [id]) // Add other dependencies of fetchTimesheetsAndUpdateState here if there are any
+  }, [id, setReduce, setReduceHours]) // Include setReduce and setReduceHours if they are not constant
 
   useEffect(() => {
     fetchEmployee(id).then((data) => {
