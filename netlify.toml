@@ -1,3 +1,0 @@
-[functions]
-  node_bundler = "npm"
-  included_files = ["netlify/**/*"]
