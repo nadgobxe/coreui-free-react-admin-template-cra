@@ -35,7 +35,7 @@ const Login = () => {
     console.log('password length:', password.length)
     try {
       const response = await axios.post(
-        'https://holdemserver4-pxttn88c.b4a.run/employees/login',
+        '/.netlify/functions/serverProxy/employees/login',
         {
           username,
           password,
@@ -84,7 +84,7 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
-                    <h1>Login</h1>
+                    <h1>Login1</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
