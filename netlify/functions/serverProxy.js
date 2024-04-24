@@ -11,7 +11,8 @@ exports.handler = async (event, context) => {
       headers,
       data: body,
     })
-
+    console.log('Received event:', event)
+    console.log('Making request to backend:', `${backendUrl}${path}`)
     return {
       statusCode: response.status,
       headers: response.headers,
