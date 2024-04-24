@@ -20,6 +20,8 @@ exports.handler = async (event, context) => {
     }
   } catch (error) {
     console.error('Error occurred while proxying the request:', error)
+    console.log('Received event:', event)
+    console.log('Making request to backend:', `${backendUrl}${path}`)
     return {
       statusCode: error.response?.status || 500,
       body: JSON.stringify({ error: 'An error occurred while proxying the request.' }),
