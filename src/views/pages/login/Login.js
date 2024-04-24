@@ -34,10 +34,16 @@ const Login = () => {
     console.log(':', username)
     console.log('password length:', password.length)
     try {
-      const response = await axios.post('https://holdemserver4-pxttn88c.b4a.run/employees/login', {
-        username,
-        password,
-      })
+      const response = await axios.post(
+        'https://holdemserver4-pxttn88c.b4a.run/employees/login',
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true, // This will allow the browser to include cookies in the request
+        },
+      )
       console.log('response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get(
@@ -46,6 +52,7 @@ const Login = () => {
             headers: {
               Authorization: `Bearer ${response.data.token}`,
             },
+            withCredentials: true, // Also include this option for the GET request
           },
         )
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
@@ -68,7 +75,6 @@ const Login = () => {
       console.error('Login error:', error.response.data)
     }
   }
-
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
