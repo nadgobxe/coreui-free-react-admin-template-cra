@@ -3,16 +3,24 @@ const axios = require('axios')
 exports.handler = async (event, context) => {
   const { path, httpMethod, headers, body } = event
   const backendUrl = 'https://holdemserver4-pxttn88c.b4a.run' // Replace with your backend server URL
+  console.log('Received event:', event)
+  console.log('Making request to backend:', `${backendUrl}${path}`)
+
+  // Define the part of the URL to remove
+  const partToRemove = '/.netlify/functions/serverProxy/'
+
+  // Remove the specified part
+  const cleanedUrl = [path].replace(partToRemove, '/')
 
   try {
     const response = await axios({
       method: httpMethod,
-      url: `${backendUrl}${path}`,
+      url: `${backendUrl}${cleanedUrl}`,
       headers,
       data: body,
     })
     console.log('Received event:', event)
-    console.log('Making request to backend:', `${backendUrl}${path}`)
+    console.log('Making request to backend:', `${backendUrl}${cleanedUrl}`)
     return {
       statusCode: response.status,
       headers: response.headers,
@@ -20,8 +28,6 @@ exports.handler = async (event, context) => {
     }
   } catch (error) {
     console.error('Error occurred while proxying the request:', error)
-    console.log('Received event:', event)
-    console.log('Making request to backend:', `${backendUrl}${path}`)
     return {
       statusCode: error.response?.status || 500,
       body: JSON.stringify({ error: 'An error occurred while proxying the request.' }),
