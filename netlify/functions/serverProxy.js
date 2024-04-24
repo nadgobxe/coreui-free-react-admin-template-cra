@@ -10,7 +10,7 @@ exports.handler = async (event, context) => {
   const partToRemove = '/.netlify/functions/serverProxy/'
 
   // Remove the specified part
-  const cleanedUrl = [path].replace(partToRemove, '/')
+  const cleanedUrl = path.replace(partToRemove, '/')
 
   try {
     const response = await axios({
