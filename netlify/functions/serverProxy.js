@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
     console.error('Error occurred while proxying the request:', error)
     return {
       statusCode: error.response?.status || 500,
-      body: JSON.stringify({ error: 'An error occurred while proxying the request.' }),
+      body: JSON.stringify({ error: 'An error occurred while proxying the request.2222' }),
     }
   }
 }
