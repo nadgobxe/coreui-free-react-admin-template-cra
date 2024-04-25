@@ -18,6 +18,7 @@ exports.handler = async (event, context) => {
       url: `${backendUrl}${cleanedUrl}`,
       headers,
       data: body,
+      httpsAgent: agent, // Add the httpsAgent option
     })
     console.log('Received event:', event)
     console.log('Making request to backend:', `${backendUrl}${cleanedUrl}`)
