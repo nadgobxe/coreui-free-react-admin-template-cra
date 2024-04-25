@@ -22,7 +22,6 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand"
   },
   "dependencies": {
-    "react-scripts": "latest",
     "@coreui/chartjs": "^4.0.0",
     "@coreui/coreui": "^5.0.0",
     "@coreui/icons": "^3.0.1",
