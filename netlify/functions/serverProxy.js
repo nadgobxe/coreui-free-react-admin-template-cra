@@ -1,5 +1,5 @@
 const axios = require('axios')
-const https = require('https');
+const https = require('https')
 
 const agent = new https.Agent({
   rejectUnauthorized: true, // Set to true for production
@@ -8,7 +8,7 @@ const agent = new https.Agent({
 
 exports.handler = async (event, context) => {
   const { path, httpMethod, headers, body } = event
-  const backendUrl = 'https://holdemserver4-pxttn88c.b4a.run' // Replace with your backend server URL
+  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com' // Replace with your backend server URL
   console.log('Received event:', event)
   console.log('Making request to backend:', `${backendUrl}${path}`)
 
