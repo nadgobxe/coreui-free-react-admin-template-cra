@@ -2,7 +2,8 @@ const axios = require('axios')
 const https = require('https');
 
 const agent = new https.Agent({
-  rejectUnauthorized: false
+  rejectUnauthorized: true, // Set to true for production
+  secureProtocol: 'TLSv1_2_method' // Force TLS 1.2 as the protocol
 });
 
 exports.handler = async (event, context) => {
