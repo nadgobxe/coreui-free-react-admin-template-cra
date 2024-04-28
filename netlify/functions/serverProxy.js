@@ -1,8 +1,13 @@
 const axios = require('axios')
+const https = require('https')
+
+const agent = new https.Agent({
+  rejectUnauthorized: false, // Set to true for production
+});
 
 exports.handler = async (event, context) => {
   const { path, httpMethod, headers, body } = event
-  const backendUrl = 'https://holdemserver4-pxttn88c.b4a.run' // Replace with your backend server URL
+  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com' // Replace with your backend server URL
   console.log('Received event:', event)
   console.log('Making request to backend:', `${backendUrl}${path}`)
 
@@ -18,6 +23,7 @@ exports.handler = async (event, context) => {
       url: `${backendUrl}${cleanedUrl}`,
       headers,
       data: body,
+      httpsAgent: agent, // Add the httpsAgent option
     })
     console.log('Received event:', event)
     console.log('Making request to backend:', `${backendUrl}${cleanedUrl}`)
@@ -30,7 +36,7 @@ exports.handler = async (event, context) => {
     console.error('Error occurred while proxying the request:', error)
     return {
       statusCode: error.response?.status || 500,
-      body: JSON.stringify({ error: 'An error occurred while proxying the request.2222' }),
+      body: JSON.stringify({ error: 'An error occurred while proxying the request.' }),
     }
   }
 }

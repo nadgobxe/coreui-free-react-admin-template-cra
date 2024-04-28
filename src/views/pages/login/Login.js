@@ -47,7 +47,7 @@ const Login = () => {
       console.log('response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get(
-          'https://holdemserver4-pxttn88c.b4a.run/employees/loggedin',
+          'https://holdemserver-1dfb99f436f4.herokuapp.com/employees/loggedin',
           {
             headers: {
               Authorization: `Bearer ${response.data.token}`,
