@@ -60,7 +60,6 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         error: 'An error occurred while proxying the request.',
         logs: {
-          event,
           path,
           httpMethod,
           headers,
