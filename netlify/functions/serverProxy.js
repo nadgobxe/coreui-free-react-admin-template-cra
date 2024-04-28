@@ -26,7 +26,8 @@ exports.handler = async (event, context) => {
       httpsAgent: agent,
     });
 
-    console.log('Backend response:', response.data);
+    console.log('Backend response status:', response.status);
+    console.log('Backend response data:', response.data);
 
     return {
       statusCode: response.status,
@@ -35,6 +36,9 @@ exports.handler = async (event, context) => {
     };
   } catch (error) {
     console.error('Error occurred while proxying the request:', error);
+    console.error('Error response status:', error.response?.status);
+    console.error('Error response data:', error.response?.data);
+
     return {
       statusCode: error.response?.status || 500,
       body: JSON.stringify({ error: 'An error occurred while proxying the request.' }),
