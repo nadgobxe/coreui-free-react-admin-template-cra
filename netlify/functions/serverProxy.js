@@ -42,6 +42,14 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(response.data),
     }
   } catch (error) {
+    console.log('Received event:', event)
+    console.log('Path:', path)
+    console.log('HTTP method:', httpMethod)
+    console.log('Headers:', headers)
+    console.log('Body:', body)
+    console.log('Backend URL:', backendUrl)
+    console.log('Agent:', agent)
+    console.log('Context', context)
     console.error('Error response status:', error.response?.status)
     console.error('Error occurred while proxying the request:', error)
     console.error('Error response status:', error.response?.status)
