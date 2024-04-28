@@ -35,6 +35,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(response.data),
     };
   } catch (error) {
+    console.error('Error response status:', error.response?.status);
     console.error('Error occurred while proxying the request:', error);
     console.error('Error response status:', error.response?.status);
     console.error('Error response data:', error.response?.data);
