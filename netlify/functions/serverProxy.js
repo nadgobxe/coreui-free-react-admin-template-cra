@@ -59,18 +59,12 @@ exports.handler = async (event, context) => {
       statusCode: error.response?.status || 500,
       body: JSON.stringify({
         error: 'An error occurred while proxying the request.',
-        logs: {
-          path,
-          httpMethod,
-          headers,
-          body,
-          backendUrl,
-          agent,
-          context,
-          errorResponseStatus: error.response?.status,
-          errorResponseData: error.response?.data,
-          errorMessage: error.message,
-        },
+        prefix: 'serverProxy',
+        message: error.response?.data || 'Internal server error',
+        path,
+        httpMethod,
+        headers,
+        body,
       }),
     }
   }
