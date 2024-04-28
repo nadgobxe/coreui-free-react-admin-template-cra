@@ -12,7 +12,7 @@ exports.handler = async (event, context) => {
   console.log('Received event:', event);
 
   // Remove the Netlify Function path from the URL
-  const cleanedPath = path.replace('/.netlify/functions/serverProxy', '');
+  const cleanedPath = path.replace('.netlify/functions/serverProxy', '');
 
   const backendEndpoint = `${backendUrl}${cleanedPath}`;
   console.log('Making request to backend:', backendEndpoint);
