@@ -7,7 +7,7 @@ const agent = new https.Agent({
 
 exports.handler = async (event, context) => {
   const { path, httpMethod, headers, body } = event;
-  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com/'; // Replace with your backend server URL
+  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com'; // Replace with your backend server URL
 
   console.log('Received event:', event);
 
