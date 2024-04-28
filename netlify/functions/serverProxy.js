@@ -57,15 +57,8 @@ exports.handler = async (event, context) => {
         "Agent": agent,
         "backendUrl": backendUrl,
         "backendEndpoint": backendEndpoint,
-        "error": error,
         "error.response.status": error.response?.status,
         "error.response.data": error.response?.data,
-        "error.response": error.response,
-        "error.message": error.message,
-        "error.stack": error.stack,
-        "error.config": error.config,
-        "error.request": error.request,
-        "error.toJSON": error.toJSON,
       }),
     }
   }
