@@ -53,7 +53,7 @@ exports.handler = async (event, context) => {
        "httpMethod" : httpMethod,
         "headers": headers,
         "body" : body,
-        // "context": context,
+        "context": context,
         // "Agent": agent,
         // "backendUrl": backendUrl,
         // "backendEndpoint": backendEndpoint,
