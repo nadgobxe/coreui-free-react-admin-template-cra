@@ -1,65 +1,67 @@
-const axios = require('axios')
-const https = require('https')
+const https = require('https');
+const fetch = require('node-fetch');
 
 const agent = new https.Agent({
   rejectUnauthorized: true, // Set to true for production
-})
+});
 
 exports.handler = async (event, context) => {
-  const { path, httpMethod, headers, body } = event
-  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com' // Replace with your backend server URL
+  const { path, httpMethod, headers, body } = event;
+  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com'; // Replace with your backend server URL
 
-  console.log('Received event:', event)
-  console.log('Path:', path)
-  console.log('HTTP method:', httpMethod)
-  console.log('Headers:', headers)
-  console.log('Body:', body)
-  console.log('Backend URL:', backendUrl)
-  console.log('Agent:', agent)
-  console.log('Context', context)
+  console.log('Received event:', event);
+  console.log('Path:', path);
+  console.log('HTTP method:', httpMethod);
+  console.log('Headers:', headers);
+  console.log('Body:', body);
+  console.log('Backend URL:', backendUrl);
+  console.log('Agent:', agent);
+  console.log('Context', context);
 
   // Remove the Netlify Function path from the URL
-  const cleanedPath = path.replace('/.netlify/functions/serverProxy', '')
+  const cleanedPath = path.replace('/.netlify/functions/serverProxy', '');
+  const backendEndpoint = `${backendUrl}${cleanedPath}`;
 
-  const backendEndpoint = `${backendUrl}${cleanedPath}`
-  console.log('Making request to backend:', backendEndpoint)
+  console.log('Making request to backend:', backendEndpoint);
 
   try {
-    console.log('Making request to backend:', backendEndpoint)
-    const response = await axios({
+    console.log('Making request to backend:', backendEndpoint);
+    const response = await fetch(backendEndpoint, {
       method: httpMethod,
-      url: backendEndpoint,
       headers: headers,
-      data: body,
-    })
+      body: JSON.stringify(body),
+      agent: agent,
+    });
 
-    console.log('Backend response status:', response.status)
-    console.log('Backend response data:', response.data)
+    const responseData = await response.json();
+
+    console.log('Backend response status:', response.status);
+    console.log('Backend response data:', responseData);
 
     return {
       statusCode: response.status,
       headers: response.headers,
-      body: JSON.stringify(response.data),
-    }
+      body: JSON.stringify(responseData),
+    };
   } catch (error) {
-    console.error('Error occurred while proxying the request:', error)
+    console.error('Error occurred while proxying the request:', error);
+
     return {
-      statusCode: error.response?.status || 500,
+      statusCode: error.status || 500,
       body: JSON.stringify({
         error: 'An error occurred while proxying the request.',
         prefix: 'serverProxy',
-        "message": error.response?.data || 'Internal server error',
-        "path": path,
-       "httpMethod" : httpMethod,
-        "headers": headers,
-        "body" : body,
-        "context": context,
-        // "Agent": agent,
-        "backendUrl": backendUrl,
-        "backendEndpoint": backendEndpoint,
-        "error.response.status": error.response?.status,
-        "error.response.data": error.response?.data,
+        message: error.message || 'Internal server error',
+        path: path,
+        httpMethod: httpMethod,
+        headers: headers,
+        body: body,
+        context: context,
+        backendUrl: backendUrl,
+        backendEndpoint: backendEndpoint,
+        'error.status': error.status,
+        'error.message': error.message,
       }),
-    }
+    };
   }
-}
+};
