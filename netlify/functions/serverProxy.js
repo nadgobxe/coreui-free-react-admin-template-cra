@@ -32,12 +32,15 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(body),
       agent: agent,
     });
-
-    const responseData = await response.json();
-
+  
+    const responseText = await response.text();
+    console.log('Backend response text:', responseText);
+  
+    const responseData = JSON.parse(responseText);
+  
     console.log('Backend response status:', response.status);
     console.log('Backend response data:', responseData);
-
+  
     return {
       statusCode: response.status,
       headers: response.headers,
