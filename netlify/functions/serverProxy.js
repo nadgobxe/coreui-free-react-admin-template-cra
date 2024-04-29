@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
     const response = await axios({
       method: httpMethod,
       url: backendEndpoint,
-      headers,
+      headers: headers,
       data: body,
     })
 
