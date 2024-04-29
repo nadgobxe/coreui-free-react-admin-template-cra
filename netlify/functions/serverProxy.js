@@ -7,7 +7,7 @@ const agent = new https.Agent({
 
 exports.handler = async (event, context) => {
   const { path, httpMethod, headers, body } = event;
-  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com'; // Replace with your backend server URL
+  const backendUrl = 'https://holdemserver-1dfb99f436f4.herokuapp.com/employees/login'; // Replace with your backend server URL
 
   console.log('Received event:', event);
   console.log('Path:', path);
@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
 
   // Remove the Netlify Function path from the URL
   const cleanedPath = path.replace('/.netlify/functions/serverProxy', '');
-  const backendEndpoint = `${backendUrl}${cleanedPath}`;
+  const backendEndpoint = `${backendUrl}`;
 
   console.log('Making request to backend:', backendEndpoint);
 
