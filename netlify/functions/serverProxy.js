@@ -2,7 +2,7 @@ const axios = require('axios')
 const https = require('https')
 
 const agent = new https.Agent({
-  rejectUnauthorized: false, // Set to true for production
+  rejectUnauthorized: true, // Set to true for production
 })
 
 exports.handler = async (event, context) => {
