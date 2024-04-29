@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
         "headers": headers,
         "body" : body,
         "context": context,
-        // "Agent": agent,
+        "Agent": agent,
         // "backendUrl": backendUrl,
         // "backendEndpoint": backendEndpoint,
         // "error.response.status": error.response?.status,
