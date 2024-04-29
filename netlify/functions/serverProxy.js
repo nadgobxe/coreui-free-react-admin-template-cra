@@ -30,7 +30,6 @@ exports.handler = async (event, context) => {
       url: backendEndpoint,
       headers,
       data: body,
-      httpsAgent: agent,
     })
 
     console.log('Backend response status:', response.status)
@@ -54,11 +53,11 @@ exports.handler = async (event, context) => {
         "headers": headers,
         "body" : body,
         "context": context,
-        "Agent": agent,
-        // "backendUrl": backendUrl,
-        // "backendEndpoint": backendEndpoint,
-        // "error.response.status": error.response?.status,
-        // "error.response.data": error.response?.data,
+        // "Agent": agent,
+        "backendUrl": backendUrl,
+        "backendEndpoint": backendEndpoint,
+        "error.response.status": error.response?.status,
+        "error.response.data": error.response?.data,
       }),
     }
   }
