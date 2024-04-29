@@ -25,6 +25,7 @@ exports.handler = async (event, context) => {
   console.log('Making request to backend:', backendEndpoint)
 
   try {
+    console.log('Making request to backend:', backendEndpoint)
     const response = await axios({
       method: httpMethod,
       url: backendEndpoint,
