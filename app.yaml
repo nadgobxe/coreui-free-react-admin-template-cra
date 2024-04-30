@@ -1,0 +1,22 @@
+runtime: nodejs20
+env: standard
+instance_class: F1
+
+handlers:
+  - url: /.*
+    script: auto
+  - url: .*
+    script: auto
+
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+  max_instances: 1
+
+service_account: holdem-crm@appspot.gserviceaccount.com
+
+env_variables:
+  PORT: '3000'
+  CHOKIDAR_USEPOLLING: 'true'
