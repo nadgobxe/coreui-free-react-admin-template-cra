@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
   console.log('Path:', path);
   console.log('HTTP method:', httpMethod);
   console.log('Headers:', headers);
-  console.log('Body:', body);
+  console.log('Body:', JSON.stringify(body));
   console.log('Backend URL:', backendUrl);
   console.log('Agent:', agent);
   console.log('Context', context);
