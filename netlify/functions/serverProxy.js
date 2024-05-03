@@ -15,8 +15,9 @@ exports.handler = async (event, context) => {
   console.log('Headers:', headers);
   console.log('Body:', JSON.stringify(body));
   console.log('Body - No Jsib:', body);
-  console.log("Username:", body["username"])
-    console.log("Password:", body.password)
+  const parsedBody = JSON.parse(body);
+  console.log("Username:", parsedBody.username);
+  console.log("Password:", parsedBody.password);
   console.log('Backend URL:', backendUrl);
   console.log('Agent:', agent);
   console.log('Context', context);
