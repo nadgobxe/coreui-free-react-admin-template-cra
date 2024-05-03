@@ -33,14 +33,17 @@ exports.handler = async (event, context) => {
   try {
     console.log('Try Making request to backend:', backendEndpoint);
 
-    const response = await axios.post(backendEndpoint, parsedBody, {
-      // headers: {
-      //   ...headers,
-      //   'Content-Type': 'application/json',
-      // },
-      // httpsAgent: agent,
+    const response = await axios.post(backendEndpoint, {
+      username: parsedBody.username,
+      password: parsedBody.password,
+    }, {
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+      httpsAgent: agent,
     });
-
+    
     console.log('Backend response status:', response.status);
     console.log('Backend response data:', response.data);
 
