@@ -35,8 +35,8 @@ exports.handler = async (event, context) => {
     console.log("username:", parsedBody.username);
     const response = await axios.post(backendEndpoint, {
       
-      username: JSON.stringify(parsedBody.username),
-      password: JSON.stringify(parsedBody.password),
+      username: parsedBody.username,
+      password: parsedBody.password,
     }, {
       // headers: {
       //   ...headers,
