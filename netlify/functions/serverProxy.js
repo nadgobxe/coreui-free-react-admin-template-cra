@@ -37,13 +37,13 @@ exports.handler = async (event, context) => {
       username: parsedBody.username,
       password: parsedBody.password,
     }, {
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      httpsAgent: agent,
+      // headers: {
+      //   ...headers,
+      //   'Content-Type': 'application/json',
+      // },
+      // httpsAgent: agent,
     });
-    
+
     console.log('Backend response status:', response.status);
     console.log('Backend response data:', response.data);
 
