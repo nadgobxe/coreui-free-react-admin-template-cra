@@ -32,7 +32,13 @@ exports.handler = async (event, context) => {
     console.log('Try Making request to backend:', backendEndpoint);
     
     const response = await fetch(backendEndpoint, {
-      body: body,
+      method: httpMethod,
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(parsedBody),
+      agent: agent,
     });
   
     const responseText = await response.text();
