@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
     const responseText = await response.text();
     console.log('Backend response text:', responseText);
   
-    const responseData = JSON.parse(responseText);
+    // const responseData = JSON.parse(responseText);
   
     console.log('Backend response status:', response.status);
     console.log('Backend response data:', responseData);
@@ -44,7 +44,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: response.status,
       headers: response.headers,
-      body: JSON.stringify(responseData),
+      // body: JSON.stringify(responseData),
     };
   } catch (error) {
     console.error('Error occurred while proxying the request:', error);
