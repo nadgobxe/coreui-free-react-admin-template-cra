@@ -27,11 +27,10 @@ exports.handler = async (event, context) => {
 
   try {
     console.log('Try Making request to backend:', backendEndpoint);
+    console.log("Username:", body.username)
+    console.log("Password:", body.password)
     const response = await fetch(backendEndpoint, {
-      method: httpMethod,
-      headers: headers,
       body: body,
-      agent: agent,
     });
   
     const responseText = await response.text();
