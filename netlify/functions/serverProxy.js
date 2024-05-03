@@ -15,6 +15,8 @@ exports.handler = async (event, context) => {
   console.log('Headers:', headers);
   console.log('Body:', JSON.stringify(body));
   console.log('Body - No Jsib:', body);
+  console.log("Username:", body["username"])
+    console.log("Password:", body.password)
   console.log('Backend URL:', backendUrl);
   console.log('Agent:', agent);
   console.log('Context', context);
@@ -27,8 +29,7 @@ exports.handler = async (event, context) => {
 
   try {
     console.log('Try Making request to backend:', backendEndpoint);
-    console.log("Username:", body["username"])
-    console.log("Password:", body.password)
+    
     const response = await fetch(backendEndpoint, {
       body: body,
     });
