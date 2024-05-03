@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
     const response = await fetch(backendEndpoint, {
       method: httpMethod,
       headers: headers,
-      body: JSON.stringify(body),
+      body: body,
       agent: agent,
     });
   
