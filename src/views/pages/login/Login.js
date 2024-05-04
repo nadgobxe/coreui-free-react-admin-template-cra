@@ -44,7 +44,7 @@ const Login = () => {
           withCredentials: true, // This will allow the browser to include cookies in the request
         },
       )
-      console.log('response:', response.data)
+      console.log('My is response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get('/.netlify/functions/getLoggedInUser', {
           headers: {
@@ -52,6 +52,7 @@ const Login = () => {
           },
           withCredentials: true, // Also include this option for the GET request
         })
+        console.log('User response:', userResponse.data)  
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(userResponse.data))
