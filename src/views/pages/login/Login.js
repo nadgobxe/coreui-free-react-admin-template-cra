@@ -34,16 +34,12 @@ const Login = () => {
     console.log(':', username)
     console.log('password length:', password.length)
     try {
-      const response = await axios.post(
-        '/.netlify/functions/serverProxy/employees/login',
-        {
-          username,
-          password,
+      const userResponse = await axios.get('/.netlify/functions/getLoggedInUser', {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          withCredentials: true, // This will allow the browser to include cookies in the request
-        },
-      )
+        withCredentials: true,
+      })
       console.log('response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get(
