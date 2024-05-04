@@ -2,25 +2,29 @@ const axios = require('axios')
 
 exports.handler = async function (event, context) {
   const { path, httpMethod, body } = event
-  console.log('Received cleanedPath:', path)
-  console.log('Received httpMethod:', httpMethod)
-  console.log('Received body:', body)
-
-  const cleanedPath = path.replace('/.netlify/functions/api', '');
+  const cleanedPath = path.replace('/.netlify/functions/api', '')
 
   if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
-      console.log('Making request to backend:',  cleanedPath)
       const response = await axios.get('https://holdemserver4-pxttn88c.b4a.run/employees/users')
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
       }
     } catch (error) {
-      console.error(error)
+      console.error(
+        'Error fetching employees:',
+        error.response
+          ? {
+              status: error.response.status,
+              headers: error.response.headers,
+              data: error.response.data,
+            }
+          : error.message,
+      )
       return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error' }),
+        statusCode: error.response ? error.response.status : 500,
+        body: JSON.stringify({ error: 'Failed to fetch data' }),
       }
     }
   }
