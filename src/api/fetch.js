@@ -11,9 +11,7 @@ const fetchEmployees = async () => {
 
 const fetchEmployee = async (id) => {
   try {
-    const response = await axios.get(
-      `/.netlify/functions/api/employees/employee/${id}`,
-    )
+    const response = await axios.get(`/.netlify/functions/api/employees/employee/${id}`)
     return response.data
   } catch (error) {
     console.error(error)
@@ -22,9 +20,7 @@ const fetchEmployee = async (id) => {
 
 const fetchDeleteEmployee = async (id) => {
   try {
-    const response = await axios.delete(
-      `/.netlify/functions/api/employees/delete/${id}`,
-    )
+    const response = await axios.delete(`/.netlify/functions/api/employees/delete/${id}`)
     return response.data // Assuming the server sends back some data on successful deletion
   } catch (error) {
     console.error(error)
@@ -34,10 +30,7 @@ const fetchDeleteEmployee = async (id) => {
 
 const fetchAddTimesheet = async (data) => {
   try {
-    const response = await axios.post(
-      '/.netlify/functions/api/tsheet/timesheet',
-      data,
-    )
+    const response = await axios.post('/.netlify/functions/api/tsheet/timesheet', data)
     return response.data
   } catch (error) {
     console.error(error)
@@ -46,9 +39,7 @@ const fetchAddTimesheet = async (data) => {
 
 const fetchGetTimesheet = async (id) => {
   try {
-    const response = await axios.get(
-      `/.netlify/functions/api/tsheet/timesheet/employee/${id}`,
-    )
+    const response = await axios.get(`/.netlify/functions/api/tsheet/timesheet/employee/${id}`)
     return response.data
   } catch (error) {
     console.error(error)
@@ -57,9 +48,7 @@ const fetchGetTimesheet = async (id) => {
 
 const fetchDeleteTimesheet = async (id) => {
   try {
-    const response = await axios.delete(
-      `/.netlify/functions/api/tsheet/delete/${id}`,
-    )
+    const response = await axios.delete(`/.netlify/functions/api/tsheet/delete/${id}`)
     return response.data // Assuming the server sends back some data on successful deletion
   } catch (error) {
     console.error(error)
@@ -69,10 +58,7 @@ const fetchDeleteTimesheet = async (id) => {
 
 const fetchEditTimesheet = async (id, data) => {
   try {
-    const response = await axios.put(
-      `/.netlify/functions/api/tsheet/timesheet/${id}`,
-      data,
-    )
+    const response = await axios.put(`/.netlify/functions/api/tsheet/timesheet/${id}`, data)
     console.log(data)
     return response.data
   } catch (error) {
@@ -82,10 +68,7 @@ const fetchEditTimesheet = async (id, data) => {
 
 const fetchEmployeeUserLogin = async (data) => {
   try {
-    const response = await axios.post(
-      '/.netlify/functions/api/employees/login',
-      data,
-    )
+    const response = await axios.post('/.netlify/functions/api/employees/login', data)
     return response.data
   } catch (error) {
     console.error(error)

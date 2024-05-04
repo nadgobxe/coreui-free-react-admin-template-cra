@@ -22,7 +22,9 @@ exports.handler = async function (event, context) {
   if (path.startsWith('/employees/employee/') && httpMethod === 'GET') {
     const id = path.split('/').pop()
     try {
-      const response = await axios.get(`https://holdemserver4-pxttn88c.b4a.run/employees/employee/${id}`)
+      const response = await axios.get(
+        `https://holdemserver4-pxttn88c.b4a.run/employees/employee/${id}`,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -39,7 +41,9 @@ exports.handler = async function (event, context) {
   if (path.startsWith('/employees/delete/') && httpMethod === 'DELETE') {
     const id = path.split('/').pop()
     try {
-      const response = await axios.delete(`https://holdemserver4-pxttn88c.b4a.run/employees/delete/${id}`)
+      const response = await axios.delete(
+        `https://holdemserver4-pxttn88c.b4a.run/employees/delete/${id}`,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -56,7 +60,10 @@ exports.handler = async function (event, context) {
   if (path === '/tsheet/timesheet' && httpMethod === 'POST') {
     try {
       const data = JSON.parse(body)
-      const response = await axios.post('https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet', data)
+      const response = await axios.post(
+        'https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet',
+        data,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -73,7 +80,9 @@ exports.handler = async function (event, context) {
   if (path.startsWith('/tsheet/timesheet/employee/') && httpMethod === 'GET') {
     const id = path.split('/').pop()
     try {
-      const response = await axios.get(`https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/employee/${id}`)
+      const response = await axios.get(
+        `https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/employee/${id}`,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -90,7 +99,9 @@ exports.handler = async function (event, context) {
   if (path.startsWith('/tsheet/delete/') && httpMethod === 'DELETE') {
     const id = path.split('/').pop()
     try {
-      const response = await axios.delete(`https://holdemserver4-pxttn88c.b4a.run/tsheet/delete/${id}`)
+      const response = await axios.delete(
+        `https://holdemserver4-pxttn88c.b4a.run/tsheet/delete/${id}`,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -108,7 +119,10 @@ exports.handler = async function (event, context) {
     const id = path.split('/').pop()
     try {
       const data = JSON.parse(body)
-      const response = await axios.put(`https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/${id}`, data)
+      const response = await axios.put(
+        `https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/${id}`,
+        data,
+      )
       console.log(data)
       return {
         statusCode: 200,
@@ -126,7 +140,10 @@ exports.handler = async function (event, context) {
   if (path === '/employees/login' && httpMethod === 'POST') {
     try {
       const data = JSON.parse(body)
-      const response = await axios.post('https://holdemserver4-pxttn88c.b4a.run/employees/login', data)
+      const response = await axios.post(
+        'https://holdemserver4-pxttn88c.b4a.run/employees/login',
+        data,
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
