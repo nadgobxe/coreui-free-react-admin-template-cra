@@ -6,7 +6,7 @@ exports.handler = async function (event, context) {
   console.log('Received httpMethod:', httpMethod)
   console.log('Received body:', body)
 
-  const cleanedcleanedPath = path.replace('/.netlify/functions/api', '');
+  const cleanedPath = path.replace('/.netlify/functions/api', '');
 
   if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
