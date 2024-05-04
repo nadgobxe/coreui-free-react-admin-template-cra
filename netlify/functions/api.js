@@ -10,6 +10,7 @@ exports.handler = async function (event, context) {
 
   if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
+      console.log('Making request to backend:',  cleanedPath)
       const response = await axios.get('https://holdemserver4-pxttn88c.b4a.run/employees/users')
       return {
         statusCode: 200,
