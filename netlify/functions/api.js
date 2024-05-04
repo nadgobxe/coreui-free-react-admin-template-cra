@@ -6,7 +6,7 @@ exports.handler = async function (event, context) {
 
   if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
-      const response = await axios.get('https://holdemserver4-pxttn88c.b4a.run/employees/users')
+      const response = await axios.get('https://holdemserver-1dfb99f436f4.herokuapp.com/employees/users')
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -33,7 +33,7 @@ exports.handler = async function (event, context) {
     const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.get(
-        `https://holdemserver4-pxttn88c.b4a.run/employees/employee/${id}`,
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/employees/employee/${id}`,
       )
       return {
         statusCode: 200,
@@ -52,7 +52,7 @@ exports.handler = async function (event, context) {
     const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.delete(
-        `https://holdemserver4-pxttn88c.b4a.run/employees/delete/${id}`,
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/employees/delete/${id}`,
       )
       return {
         statusCode: 200,
@@ -71,7 +71,7 @@ exports.handler = async function (event, context) {
     try {
       const data = JSON.parse(body)
       const response = await axios.post(
-        'https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet',
+        'https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/timesheet',
         data,
       )
       return {
@@ -91,7 +91,7 @@ exports.handler = async function (event, context) {
     const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.get(
-        `https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/employee/${id}`,
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/timesheet/employee/${id}`,
       )
       return {
         statusCode: 200,
@@ -110,7 +110,7 @@ exports.handler = async function (event, context) {
     const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.delete(
-        `https://holdemserver4-pxttn88c.b4a.run/tsheet/delete/${id}`,
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/delete/${id}`,
       )
       return {
         statusCode: 200,
@@ -130,7 +130,7 @@ exports.handler = async function (event, context) {
     try {
       const data = JSON.parse(body)
       const response = await axios.put(
-        `https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/${id}`,
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/timesheet/${id}`,
         data,
       )
       console.log(data)
@@ -151,7 +151,7 @@ exports.handler = async function (event, context) {
     try {
       const data = JSON.parse(body)
       const response = await axios.post(
-        'https://holdemserver4-pxttn88c.b4a.run/employees/login',
+        'https://holdemserver-1dfb99f436f4.herokuapp.com/employees/login',
         data,
       )
       return {
