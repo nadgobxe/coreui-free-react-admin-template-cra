@@ -46,15 +46,12 @@ const Login = () => {
       )
       console.log('response:', response.data)
       if (response.data.token) {
-        const userResponse = await axios.get(
-          '/.netlify/functions/getLoggedInUser',
-          {
-            headers: {
-              Authorization: `Bearer ${response.data.token}`,
-            },
-            withCredentials: true, // Also include this option for the GET request
+        const userResponse = await axios.get('/.netlify/functions/getLoggedInUser', {
+          headers: {
+            Authorization: `Bearer ${response.data.token}`,
           },
-        )
+          withCredentials: true, // Also include this option for the GET request
+        })
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(userResponse.data))
