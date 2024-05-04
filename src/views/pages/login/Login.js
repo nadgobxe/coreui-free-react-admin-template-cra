@@ -52,7 +52,7 @@ const Login = () => {
           },
           withCredentials: true, // Also include this option for the GET request
         })
-        console.log('User response:', userResponse.data)  
+        console.log('User response:', userResponse.data)
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(userResponse.data))
