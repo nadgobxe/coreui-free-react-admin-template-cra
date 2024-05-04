@@ -2,11 +2,13 @@ const axios = require('axios')
 
 exports.handler = async function (event, context) {
   const { path, httpMethod, body } = event
-  console.log('Received path:', path)
+  console.log('Received cleanedPath:', path)
   console.log('Received httpMethod:', httpMethod)
   console.log('Received body:', body)
 
-  if (path === '/employees/users' && httpMethod === 'GET') {
+  const cleanedcleanedPath = path.replace('/.netlify/functions/api', '');
+
+  if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
       const response = await axios.get('https://holdemserver4-pxttn88c.b4a.run/employees/users')
       return {
@@ -22,8 +24,8 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path.startsWith('/employees/employee/') && httpMethod === 'GET') {
-    const id = path.split('/').pop()
+  if (cleanedPath.startsWith('/employees/employee/') && httpMethod === 'GET') {
+    const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.get(
         `https://holdemserver4-pxttn88c.b4a.run/employees/employee/${id}`,
@@ -41,8 +43,8 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path.startsWith('/employees/delete/') && httpMethod === 'DELETE') {
-    const id = path.split('/').pop()
+  if (cleanedPath.startsWith('/employees/delete/') && httpMethod === 'DELETE') {
+    const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.delete(
         `https://holdemserver4-pxttn88c.b4a.run/employees/delete/${id}`,
@@ -60,7 +62,7 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path === '/tsheet/timesheet' && httpMethod === 'POST') {
+  if (cleanedPath === '/tsheet/timesheet' && httpMethod === 'POST') {
     try {
       const data = JSON.parse(body)
       const response = await axios.post(
@@ -80,8 +82,8 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path.startsWith('/tsheet/timesheet/employee/') && httpMethod === 'GET') {
-    const id = path.split('/').pop()
+  if (cleanedPath.startsWith('/tsheet/timesheet/employee/') && httpMethod === 'GET') {
+    const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.get(
         `https://holdemserver4-pxttn88c.b4a.run/tsheet/timesheet/employee/${id}`,
@@ -99,8 +101,8 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path.startsWith('/tsheet/delete/') && httpMethod === 'DELETE') {
-    const id = path.split('/').pop()
+  if (cleanedPath.startsWith('/tsheet/delete/') && httpMethod === 'DELETE') {
+    const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.delete(
         `https://holdemserver4-pxttn88c.b4a.run/tsheet/delete/${id}`,
@@ -118,8 +120,8 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path.startsWith('/tsheet/timesheet/') && httpMethod === 'PUT') {
-    const id = path.split('/').pop()
+  if (cleanedPath.startsWith('/tsheet/timesheet/') && httpMethod === 'PUT') {
+    const id = cleanedPath.split('/').pop()
     try {
       const data = JSON.parse(body)
       const response = await axios.put(
@@ -140,7 +142,7 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (path === '/employees/login' && httpMethod === 'POST') {
+  if (cleanedPath === '/employees/login' && httpMethod === 'POST') {
     try {
       const data = JSON.parse(body)
       const response = await axios.post(
