@@ -2,6 +2,9 @@ const axios = require('axios')
 
 exports.handler = async function (event, context) {
   const { path, httpMethod, body } = event
+  console.log('Received path:', path)
+  console.log('Received httpMethod:', httpMethod)
+  console.log('Received body:', body)
 
   if (path === '/employees/users' && httpMethod === 'GET') {
     try {
