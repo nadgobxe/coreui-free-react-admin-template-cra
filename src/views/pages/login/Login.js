@@ -34,16 +34,20 @@ const Login = () => {
     console.log(':', username)
     console.log('password length:', password.length)
     try {
-      const userResponse = await axios.get('/.netlify/functions/getLoggedInUser', {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.post(
+        '/.netlify/functions/serverProxy/employees/login',
+        {
+          username,
+          password,
         },
-        withCredentials: true,
-      })
+        {
+          withCredentials: true, // This will allow the browser to include cookies in the request
+        },
+      )
       console.log('response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get(
-          'https://holdemserver-1dfb99f436f4.herokuapp.com/employees/loggedin',
+          '/.netlify/functions/getLoggedInUser',
           {
             headers: {
               Authorization: `Bearer ${response.data.token}`,
