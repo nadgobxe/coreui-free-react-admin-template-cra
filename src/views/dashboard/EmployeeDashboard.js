@@ -63,6 +63,18 @@ const EmployeeDashboard = () => {
       return null
     }
   }
+
+  const renderTotalAmount = (employeeId) => {
+    const [totalAmount, setTotalAmount] = useState(null)
+
+    useEffect(() => {
+      fetchTimesheetData(employeeId).then((amount) => {
+        setTotalAmount(amount)
+      })
+    }, [employeeId])
+
+    return totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'
+  }
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
