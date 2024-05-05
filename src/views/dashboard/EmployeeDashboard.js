@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { fetchEmployees, fetchDeleteEmployee, fetchGetTimesheet } from '../../api/fetch'
-import { capitalize, formatDate } from '../../utils/helpers'
+import { capitalize, formatDate, reduceAmount } from '../../utils/helpers'
 import { Link } from 'react-router-dom'
 
 import {
@@ -56,7 +56,8 @@ const EmployeeDashboard = () => {
   const fetchTimesheetData = async (employeeId) => {
     try {
       const timesheetData = await fetchGetTimesheet(employeeId)
-      return timesheetData.totalAmount
+      const reducedTotalAmount = reduceAmount(timesheetData, 'totalAmount')
+      return reducedTotalAmount
     } catch (error) {
       console.error('Error fetching timesheet data:', error)
       return null
