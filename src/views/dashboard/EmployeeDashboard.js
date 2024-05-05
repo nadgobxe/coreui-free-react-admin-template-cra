@@ -45,6 +45,7 @@ import MainChart from './MainChart'
 
 const EmployeeDashboard = () => {
   const [employees, setEmployees] = useState([])
+  const [totalAmount, setTotalAmount] = useState(null)
 
   useEffect(() => {
     fetchEmployees().then((data) => {
@@ -57,7 +58,8 @@ const EmployeeDashboard = () => {
     try {
       const timesheetData = await fetchGetTimesheet(employeeId)
       const reducedTotalAmount = reduceAmount(timesheetData, 'totalAmount')
-      return reducedTotalAmount
+      setTotalAmount(reducedTotalAmount)
+      return totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'
     } catch (error) {
       console.error('Error fetching timesheet data:', error)
       return null
@@ -294,14 +296,7 @@ const EmployeeDashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">
-                            £
-                            {fetchTimesheetData(item.id).then((totalAmount) => (
-                              <span>
-                                {totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'}
-                              </span>
-                            ))}
-                          </div>
+                          <div className="fw-semibold">£{fetchTimesheetData(item.id)}</div>
                           <div className="ms-3">
                             <small className="text-body-secondary">50</small>
                           </div>
