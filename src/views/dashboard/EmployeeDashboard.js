@@ -246,6 +246,7 @@ const EmployeeDashboard = () => {
 
                   {progressGroupExample3.map((item, index) => (
                     <div className="progress-group" key={index}>
+                      ({console.log(item)})
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
                         <span>{item.title}</span>
