@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { fetchEmployees, fetchDeleteEmployee } from '../../api/fetch'
+import { fetchEmployees, fetchDeleteEmployee, fetchGetTimesheet } from '../../api/fetch'
 import { capitalize, formatDate } from '../../utils/helpers'
 import { Link } from 'react-router-dom'
 
@@ -52,6 +52,17 @@ const EmployeeDashboard = () => {
       console.log(data.period)
     })
   }, [])
+
+  const fetchTimesheetData = async (employeeId) => {
+    try {
+      const timesheetData = await fetchGetTimesheet(employeeId)
+      return timesheetData.totalAmount
+    } catch (error) {
+      console.error('Error fetching timesheet data:', error)
+      return null
+    }
+  }
+
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
@@ -282,7 +293,14 @@ const EmployeeDashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">£796.00</div>
+                          <div className="fw-semibold">
+                            £
+                            {fetchTimesheetData(item.id).then((totalAmount) => (
+                              <span>
+                                {totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'}
+                              </span>
+                            ))}
+                          </div>
                           <div className="ms-3">
                             <small className="text-body-secondary">50</small>
                           </div>
