@@ -45,7 +45,6 @@ import MainChart from './MainChart'
 
 const EmployeeDashboard = () => {
   const [employees, setEmployees] = useState([])
-  const [totalAmount, setTotalAmount] = useState(null)
 
   useEffect(() => {
     fetchEmployees().then((data) => {
@@ -58,14 +57,12 @@ const EmployeeDashboard = () => {
     try {
       const timesheetData = await fetchGetTimesheet(employeeId)
       const reducedTotalAmount = reduceAmount(timesheetData, 'totalAmount')
-      setTotalAmount(reducedTotalAmount)
-      return totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'
+      return reducedTotalAmount
     } catch (error) {
       console.error('Error fetching timesheet data:', error)
       return null
     }
   }
-
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
