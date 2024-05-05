@@ -75,7 +75,7 @@ const EmployeeDashboard = () => {
 
   const renderTotalAmount = (employeeId) => {
     const totalAmount = timesheetData[employeeId]
-    return totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'
+    return totalAmount !== null ? `£${totalAmount}` : 'N/A'
   }
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
