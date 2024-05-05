@@ -308,7 +308,7 @@ const EmployeeDashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">£{renderTotalAmount(item.id)}</div>
+                          <div className="fw-semibold">{renderTotalAmount(item.id)}</div>
                           <div className="ms-3">
                             <small className="text-body-secondary">50</small>
                           </div>
