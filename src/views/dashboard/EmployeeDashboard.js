@@ -45,6 +45,7 @@ import MainChart from './MainChart'
 
 const EmployeeDashboard = () => {
   const [employees, setEmployees] = useState([])
+  const [timesheetData, setTimesheetData] = useState({})
 
   useEffect(() => {
     fetchEmployees().then((data) => {
@@ -53,26 +54,27 @@ const EmployeeDashboard = () => {
     })
   }, [])
 
-  const fetchTimesheetData = async (employeeId) => {
-    try {
-      const timesheetData = await fetchGetTimesheet(employeeId)
-      const reducedTotalAmount = reduceAmount(timesheetData, 'totalAmount')
-      return reducedTotalAmount
-    } catch (error) {
-      console.error('Error fetching timesheet data:', error)
-      return null
+  useEffect(() => {
+    const fetchTimesheetDataForEmployees = async () => {
+      const data = {}
+      for (const employee of employees) {
+        try {
+          const timesheetData = await fetchGetTimesheet(employee.id)
+          const reducedTotalAmount = reduceAmount(timesheetData, 'totalAmount')
+          data[employee.id] = reducedTotalAmount
+        } catch (error) {
+          console.error('Error fetching timesheet data:', error)
+          data[employee.id] = null
+        }
+      }
+      setTimesheetData(data)
     }
-  }
+
+    fetchTimesheetDataForEmployees()
+  }, [employees])
 
   const renderTotalAmount = (employeeId) => {
-    const [totalAmount, setTotalAmount] = useState(null)
-
-    useEffect(() => {
-      fetchTimesheetData(employeeId).then((amount) => {
-        setTotalAmount(amount)
-      })
-    }, [employeeId])
-
+    const totalAmount = timesheetData[employeeId]
     return totalAmount !== null ? `£${totalAmount.toFixed(2)}` : 'N/A'
   }
   const progressExample = [
