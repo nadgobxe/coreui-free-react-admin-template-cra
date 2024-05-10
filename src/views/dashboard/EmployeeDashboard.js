@@ -17,8 +17,7 @@ const EmployeeDashboard = () => {
           <CCardTitle>Card title</CCardTitle>
           <CCardText>
             <CIcon icon={cilUser} size="xl" />
-            Some quick example text to build on the card title and make up the bulk of the card's
-            content.
+            <br />
           </CCardText>
           <CButton color="primary" size="lg">
             <Link to={`/employee/dashboard//employee-details/${user.user._id}`}>Go somewhere</Link>
