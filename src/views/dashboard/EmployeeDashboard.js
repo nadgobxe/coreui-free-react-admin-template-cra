@@ -29,7 +29,7 @@ const EmployeeDashboard = () => {
             content.
           </CCardText>
           <CButton color="primary" size="lg">
-            <Link to={`/employee/dashboard//employee-details/${user.user.id}`}>Go somewhere</Link>
+            <Link to={`/employee/dashboard//employee-details/${user.user._id}`}>Go somewhere</Link>
           </CButton>
         </CCardBody>
       </CCard>
