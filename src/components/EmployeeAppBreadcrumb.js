@@ -40,6 +40,7 @@ const EmployeeAppBreadcrumb = () => {
       {breadcrumbs.map((breadcrumb, index) => {
         return (
           <CBreadcrumbItem {...(breadcrumb.active ? { active: true } : {})} key={index}>
+            {console.log(breadcrumb.pathname)}
             <Link to={breadcrumb.pathname}>{breadcrumb.name} </Link>
           </CBreadcrumbItem>
         )
