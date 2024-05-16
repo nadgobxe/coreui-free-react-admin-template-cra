@@ -116,7 +116,7 @@ exports.handler = async function (event, context) {
         `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/email/${id}`,
       )
       return {
-        console.log("test email send success")
+        console.log("test email send success"),
         statusCode: 200,
         body: JSON.stringify(response.data),
       }
