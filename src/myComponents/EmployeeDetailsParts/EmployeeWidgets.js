@@ -34,14 +34,14 @@ export default function EmployeeWidgets({
         const responsePay = await reduceHours
         const responseTotalPay = await reduce
 
-        console.log(`response: `, response) // Use console.log to log objects directly
+        console.log(`response: `, response)
         setTotalPay(responseTotalPay)
         setPayPerHour(responsePay)
-        setEmployee(response) // Update state with the resolved value
-        setLoading(false) // Set loading to false after the operation is complete
+        setEmployee(response)
+        setLoading(false)
         if (reduceHours === 0) {
           console.error('reduceHours is zero, division by zero is not allowed.')
-          setPayDividedByTotalHours(0) // or return a default value or handle this case as needed
+          setPayDividedByTotalHours(0)
         } else {
           const calculatedValue = reduce / reduceHours
           setPayDividedByTotalHours(calculatedValue)
@@ -51,13 +51,12 @@ export default function EmployeeWidgets({
         )
       } catch (error) {
         console.error(error)
-        setLoading(false) // Ensure loading is set to false even if there's an error
+        setLoading(false)
       }
     }
 
     fetchEmployee()
-    // Log the `employee` prop to see its value
-  }, [employee, reduce, reduceHours, timesheet, payDividedByTotalHours, payPerHour, totalPay]) // Depend on `employee` if it's a prop that could change
+  }, [employee, reduce, reduceHours, timesheet, payDividedByTotalHours, payPerHour, totalPay])
 
   console.log(employeeProp)
   console.log(`isShown: ${isShown} reduce: ${reduce}  employee: ${employee}`)
@@ -79,11 +78,7 @@ export default function EmployeeWidgets({
         color="primary"
         value={
           <>
-            {
-              isShown
-                ? `£${reduce} ` // Show the reduced value when isShown is true
-                : 'Loading...' // Show "Loading..." initially or while isShown is false
-            }
+            {isShown ? `£${reduce} ` : 'Loading...'}
             <span className="fs-6 fw-normal">
               (40.9% <CIcon icon={cilArrowTop} />)
             </span>
@@ -102,11 +97,9 @@ export default function EmployeeWidgets({
         color="primary"
         value={
           <>
-            {
-              isShown
-                ? `Average Win per Hour £${formatNumber(payDividedByTotalHours)} ` // Show the reduced value when isShown is true
-                : 'Loading...' // Show "Loading..." initially or while isShown is false
-            }
+            {isShown
+              ? `Average Win per Hour £${formatNumber(payDividedByTotalHours)} `
+              : 'Loading...'}
             <span className="fs-6 fw-normal">
               (40.9% <CIcon icon={cilArrowTop} />)
             </span>
@@ -129,13 +122,14 @@ export default function EmployeeWidgets({
     </>
   )
 }
+
 EmployeeWidgets.propTypes = {
-  reduce: PropTypes.number,
-  isShown: PropTypes.bool,
+  reduce: PropTypes.number.isRequired,
+  isShown: PropTypes.bool.isRequired,
   employee: PropTypes.shape({
     name: PropTypes.string,
-  }),
-  reduceHours: PropTypes.number,
-  timesheet: PropTypes.array,
-  handleSendTimeSheet: PropTypes.func,
+  }).isRequired,
+  reduceHours: PropTypes.number.isRequired,
+  timesheet: PropTypes.array.isRequired,
+  handleSendTimeSheet: PropTypes.func.isRequired,
 }
