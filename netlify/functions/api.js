@@ -110,11 +110,13 @@ exports.handler = async function (event, context) {
 
   if (cleanedPath.startsWith('/tsheet/tsheet/email/') && httpMethod === 'GET') {
     const id = cleanedPath.split('/').pop()
+    console.log("test email send")
     try {
       const response = await axios.get(
         `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/email/${id}`,
       )
       return {
+        console.log("test email send success")
         statusCode: 200,
         body: JSON.stringify(response.data),
       }
