@@ -108,7 +108,7 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (cleanedPath.startsWith('/tsheet/timesheet/employee/') && httpMethod === 'GET') {
+  if (cleanedPath.startsWith('/tsheet/tsheet/email/') && httpMethod === 'GET') {
     const id = cleanedPath.split('/').pop()
     try {
       const response = await axios.get(
