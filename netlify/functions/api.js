@@ -108,7 +108,7 @@ exports.handler = async function (event, context) {
     }
   }
 
-  if (cleanedPath.startsWith('/tsheet/tsheet/email/') && httpMethod === 'GET') {
+  if (cleanedPath.startsWith('/tsheet/email/') && httpMethod === 'GET') {
     const id = cleanedPath.split('/').pop()
     console.log("test email send")
     try {
