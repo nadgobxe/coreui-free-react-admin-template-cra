@@ -10,7 +10,7 @@ import { capitalize, formatDate, formatNumber, reduceAmount } from 'src/utils/he
 import { CTable, CContainer, CRow, CCol, CButton, CFormInput, CAlert } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash, cilPlus, cilCheck } from '@coreui/icons'
-import { fetchEditTimesheet } from '../api/fetch'
+import { fetchEditTimesheet, fetchSendTimesheet } from '../api/fetch'
 import EmployeeWidgets from './EmployeeDetailsParts/EmployeeWidgets'
 
 const EmployeeDetails = () => {
@@ -58,6 +58,11 @@ const EmployeeDetails = () => {
 
     return () => clearTimeout(timer)
   }, [id, edit, fetchTimesheetsAndUpdateState])
+
+  const handleSendTimesheet = async () => {
+    fetchSendTimesheet(id)
+    alert('Timesheet sent')
+  }
 
   const handleEdit = (id) => {
     console.log(`id: ${id}`)
@@ -363,6 +368,7 @@ const EmployeeDetails = () => {
               isShown={isShown}
               reduceHours={reduceHours}
               timesheet={timesheet}
+              handleSendTimesheet={handleSendTimesheet}
             />
           </CCol>
         </CRow>

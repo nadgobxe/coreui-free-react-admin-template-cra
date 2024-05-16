@@ -13,7 +13,14 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowTop, cilClock } from '@coreui/icons'
 import { formatNumber } from '../../utils/helpers'
 
-export default function EmployeeWidgets({ reduce, employee, isShown, reduceHours, timesheet }) {
+export default function EmployeeWidgets({
+  reduce,
+  employee,
+  isShown,
+  reduceHours,
+  timesheet,
+  handleSendTimeSheet,
+}) {
   const [employeeProp, setEmployee] = useState([])
   const [loading, setLoading] = useState(true)
   const [payPerHour, setPayPerHour] = useState(0)
@@ -61,7 +68,7 @@ export default function EmployeeWidgets({ reduce, employee, isShown, reduceHours
         <CCardBody>
           <CCardTitle>{loading ? <p>loading...</p> : `${employeeProp?.name} Wages`}</CCardTitle>
           <CCardText></CCardText>
-          <CButton color="primary" href="#">
+          <CButton color="primary" href="#" onClick={handleSendTimeSheet}>
             Send Time Sheet
           </CButton>
         </CCardBody>
@@ -130,4 +137,5 @@ EmployeeWidgets.propTypes = {
   }),
   reduceHours: PropTypes.number,
   timesheet: PropTypes.array,
+  handleSendTimeSheet: PropTypes.func,
 }
