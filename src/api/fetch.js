@@ -77,7 +77,7 @@ const fetchEmployeeUserLogin = async (data) => {
 
 const fetchSendTimesheet = async (id) => {
   try {
-    const response = await axios.get(`/.netlify/functions/api/tsheet/send/${id}`)
+    const response = await axios.get(`/.netlify/functions/api/tsheet/email/${id}`)
     if (response.status === 200) {
       return console.log('Timesheet sent successfully')
     }
