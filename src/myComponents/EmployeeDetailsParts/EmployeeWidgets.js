@@ -68,7 +68,7 @@ export default function EmployeeWidgets({
         <CCardBody>
           <CCardTitle>{loading ? <p>loading...</p> : `${employeeProp?.name} Wages`}</CCardTitle>
           <CCardText></CCardText>
-          <CButton color="primary" href="#" onClick={handleSendTimeSheet}>
+          <CButton color="primary" onClick={handleSendTimeSheet}>
             Send Time Sheet
           </CButton>
         </CCardBody>
