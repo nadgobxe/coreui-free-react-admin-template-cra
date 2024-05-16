@@ -115,8 +115,8 @@ exports.handler = async function (event, context) {
       const response = await axios.get(
         `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/email/${id}`,
       )
+      console.log("test email send success")
       return {
-        console.log("test email send success"),
         statusCode: 200,
         body: JSON.stringify(response.data),
       }
