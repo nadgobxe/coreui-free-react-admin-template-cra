@@ -90,9 +90,10 @@ const EmployeeDetails = () => {
   }
 
   const handleAddTimesheet = async () => {
-    console.log(employee._id)
+    console.log(employee._name)
     const data = {
       employee: employee._id,
+      employeeName: employee._name,
       dateWorked: formEdit.dateWorked,
       colleague: formEdit.colleague,
       job: formEdit.job,

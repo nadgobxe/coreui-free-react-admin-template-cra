@@ -6,7 +6,9 @@ exports.handler = async function (event, context) {
 
   if (cleanedPath === '/employees/users' && httpMethod === 'GET') {
     try {
-      const response = await axios.get('https://holdemserver-1dfb99f436f4.herokuapp.com/employees/users')
+      const response = await axios.get(
+        'https://holdemserver-1dfb99f436f4.herokuapp.com/employees/users',
+      )
       return {
         statusCode: 200,
         body: JSON.stringify(response.data),
@@ -92,6 +94,25 @@ exports.handler = async function (event, context) {
     try {
       const response = await axios.get(
         `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/timesheet/employee/${id}`,
+      )
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response.data),
+      }
+    } catch (error) {
+      console.error(error)
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Internal Server Error' }),
+      }
+    }
+  }
+
+  if (cleanedPath.startsWith('/tsheet/timesheet/employee/') && httpMethod === 'GET') {
+    const id = cleanedPath.split('/').pop()
+    try {
+      const response = await axios.get(
+        `https://holdemserver-1dfb99f436f4.herokuapp.com/tsheet/email/${id}`,
       )
       return {
         statusCode: 200,

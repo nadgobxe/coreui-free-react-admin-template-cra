@@ -75,6 +75,17 @@ const fetchEmployeeUserLogin = async (data) => {
   }
 }
 
+const fetchSendTimesheet = async (id) => {
+  try {
+    const response = await axios.get(`/.netlify/functions/api/tsheet/send/${id}`)
+    if (response.status === 200) {
+      return console.log('Timesheet sent successfully')
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // Corrected export statement
 export {
   fetchEmployees,
@@ -85,4 +96,5 @@ export {
   fetchEditTimesheet,
   fetchAddTimesheet,
   fetchEmployeeUserLogin,
+  fetchSendTimesheet,
 }
