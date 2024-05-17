@@ -96,7 +96,7 @@ const EmployeeDetails = () => {
   }
 
   const handleAddTimesheet = async () => {
-    console.log(employee._name)
+    console.log(`Hey John: ${employee._name}`)
     const data = {
       employee: employee._id,
       employeeName: employee._name,
