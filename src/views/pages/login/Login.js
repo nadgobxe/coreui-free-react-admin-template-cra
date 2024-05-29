@@ -19,6 +19,7 @@ import axios from 'axios'
 import { useAuth } from './AuthProvider'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../store/actions/userActions'
+import HoldemBg from '../../../assets/images/holdem-removals-3090.webp'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -31,8 +32,6 @@ const Login = () => {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    console.log(':', username)
-    console.log('password length:', password.length)
     try {
       const response = await axios.post(
         '/.netlify/functions/serverProxy/employees/login',
@@ -44,7 +43,6 @@ const Login = () => {
           withCredentials: true, // This will allow the browser to include cookies in the request
         },
       )
-      console.log('My is response:', response.data)
       if (response.data.token) {
         const userResponse = await axios.get('/.netlify/functions/getLoggedInUser', {
           headers: {
@@ -52,7 +50,6 @@ const Login = () => {
           },
           withCredentials: true, // Also include this option for the GET request
         })
-        console.log('User response:', userResponse.data)
         dispatch(setUser({ user: userResponse.data, token: response.data.token }))
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(userResponse.data))
@@ -63,8 +60,6 @@ const Login = () => {
         } else if (userResponse.data.user.privilege === 'employee') {
           path = '/employee/dashboard/'
         }
-
-        console.log('Navigating to:', path)
         await navigate(path) // Navigate to the computed path
       } else {
         console.error('Login failed:', response.data.message)
@@ -73,8 +68,16 @@ const Login = () => {
       console.error('Login error:', error.response.data)
     }
   }
+
+  const bgStyle = {
+    backgroundImage: `url(${HoldemBg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }
+
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center" style={bgStyle}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
