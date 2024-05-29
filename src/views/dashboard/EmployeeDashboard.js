@@ -14,7 +14,7 @@ const EmployeeDashboard = () => {
       <CCard style={{ width: '18rem' }}>
         <CCardImage orientation="top" src={user.user.picture} />
         <CCardBody>
-          <CCardTitle>Welcome {user.name}!</CCardTitle>
+          <CCardTitle>Welcome {user.user.name}!</CCardTitle>
           <CCardText>
             <CIcon icon={cilUser} size="xl" />
             <br />
