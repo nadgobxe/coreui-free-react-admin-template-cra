@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -12,7 +12,9 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CImage as Image,
 } from '@coreui/react'
+
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
@@ -20,6 +22,7 @@ import { useAuth } from './AuthProvider'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../store/actions/userActions'
 import HoldemBg from '../../../assets/images/holdem-removals-3090.webp'
+import HoldemSquare from '../../../assets/images/movepack.png'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -131,16 +134,9 @@ const Login = () => {
               <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
+                    <h2>Timesheet</h2>
+                    <p>If you don&apos;t have an account please ask Poke for access.</p>
+                    <Image src={HoldemSquare} alt="Holdem Removals" />
                   </div>
                 </CCardBody>
               </CCard>
