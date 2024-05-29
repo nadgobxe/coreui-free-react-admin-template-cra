@@ -21,7 +21,7 @@ const EmployeeDashboard = () => {
           </CCardText>
           <CButton color="primary" size="lg">
             <Link className="text-white" to={`/employee/employee-details/${user.user._id}`}>
-              Go somewhere
+              View Timesheet
             </Link>
           </CButton>
         </CCardBody>
