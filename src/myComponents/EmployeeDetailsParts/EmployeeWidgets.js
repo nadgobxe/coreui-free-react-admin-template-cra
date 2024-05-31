@@ -12,6 +12,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilArrowTop, cilClock } from '@coreui/icons'
 import { formatNumber } from '../../utils/helpers'
+import useWindowSize from 'src/utils/windowSize'
 
 export default function EmployeeWidgets({
   reduce,
@@ -26,6 +27,8 @@ export default function EmployeeWidgets({
   const [payPerHour, setPayPerHour] = useState(0)
   const [totalPay, setTotalPay] = useState(0)
   const [payDividedByTotalHours, setPayDividedByTotalHours] = useState(0)
+
+  const { width } = useWindowSize()
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -63,7 +66,7 @@ export default function EmployeeWidgets({
   return (
     <>
       <CCard style={{ width: '18rem' }}>
-        <CCardImage rounded thumbnail src={employeeProp?.picture} />
+        {width >= 768 ? <CCardImage rounded thumbnail src={employeeProp?.picture} /> : null}
         <CCardBody>
           <CCardTitle>{loading ? <p>loading...</p> : `${employeeProp?.name} Wages`}</CCardTitle>
           <CCardText></CCardText>
