@@ -252,7 +252,7 @@ const EmployeeDetails = () => {
       <CContainer>
         <CRow>
           {size.width <= 768 ? (
-            <CCol md={3}>
+            <CCol md={3} className='d-flex justify-content-center'>
               <EmployeeWidgets
                 employee={employee}
                 reduce={reduce}
