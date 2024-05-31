@@ -354,16 +354,20 @@ const EmployeeDetails = () => {
               </CRow>
             </CContainer>
           </CCol>
-          {window.size >= 768 ? (<CCol md={3}>
-            <EmployeeWidgets
-              employee={employee}
-              reduce={reduce}
-              isShown={isShown}
-              reduceHours={reduceHours}
-              timesheet={timesheet}
-              handleSendTimeSheet={handleSendTimesheet}
-            />
-          </CCol>) : <></>}
+          {window.size >= 768 ? (
+            <CCol md={3}>
+              <EmployeeWidgets
+                employee={employee}
+                reduce={reduce}
+                isShown={isShown}
+                reduceHours={reduceHours}
+                timesheet={timesheet}
+                handleSendTimeSheet={handleSendTimesheet}
+              />
+            </CCol>
+          ) : (
+            <></>
+          )}
         </CRow>
       </CContainer>
     </div>
