@@ -287,7 +287,7 @@ const EmployeeDetails = () => {
                     </div>
                   ) : (
                     <div className="d-grid gap-2 col-12 mx-auto">
-                      <div className="d-flex flex-column flex-md-row gap-0 column-gap-3">
+                      <div className="d-flex flex-column flex-md-row gap-0 row-gap-3 column-gap-3">
                         <CFormInput
                           type="date"
                           size={size.width >= 768 ? 'sm' : 'lg'}
@@ -298,7 +298,7 @@ const EmployeeDetails = () => {
                         />
                         <CFormInput
                           type="text"
-                          size="sm"
+                          size={size.width >= 768 ? 'sm' : 'lg'}
                           name="colleague"
                           placeholder="Add Colleagues"
                           aria-label="add colleagues to timesheet"
@@ -306,7 +306,7 @@ const EmployeeDetails = () => {
                         />
                         <CFormInput
                           type="text"
-                          size="sm"
+                          size={size.width >= 768 ? 'sm' : 'lg'}
                           name="job"
                           placeholder="Postcodes"
                           aria-label="add postcodes to timesheet"
@@ -314,7 +314,7 @@ const EmployeeDetails = () => {
                         />
                         <CFormInput
                           type="text"
-                          size="sm"
+                          size={size.width >= 768 ? 'sm' : 'lg'}
                           name="hoursWorked"
                           placeholder="Worked Hours"
                           aria-label="add hours worked to timesheet"
