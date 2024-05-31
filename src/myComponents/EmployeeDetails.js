@@ -354,7 +354,7 @@ const EmployeeDetails = () => {
               </CRow>
             </CContainer>
           </CCol>
-          <CCol md={3}>
+          {window.size >= 768 ? (<CCol md={3}>
             <EmployeeWidgets
               employee={employee}
               reduce={reduce}
@@ -363,7 +363,7 @@ const EmployeeDetails = () => {
               timesheet={timesheet}
               handleSendTimeSheet={handleSendTimesheet}
             />
-          </CCol>
+          </CCol>) : <></>}
         </CRow>
       </CContainer>
     </div>
