@@ -135,7 +135,7 @@ const EmployeeDetails = () => {
     date:
       editingRowId !== item.tsheetId ? (
         item.dateWorked ? (
-          formatDate(item.dateWorked)
+          size <=400 ? formatDate(item.dateWorked) : "No Date Provided"
         ) : (
           'No Date Provided'
         )
