@@ -251,7 +251,7 @@ const EmployeeDetails = () => {
     <div>
       <CContainer>
         <CRow>
-          {window.size <= 768 ? (
+          {size.width <= 768 ? (
             <CCol md={3}>
               <EmployeeWidgets
                 employee={employee}
@@ -354,7 +354,7 @@ const EmployeeDetails = () => {
               </CRow>
             </CContainer>
           </CCol>
-          {window.size >= 768 ? (
+          {size.width >= 768 ? (
             <CCol md={3}>
               <EmployeeWidgets
                 employee={employee}
