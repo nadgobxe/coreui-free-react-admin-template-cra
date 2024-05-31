@@ -119,7 +119,11 @@ const EmployeeDetails = () => {
   }
 
   const columns = [
-    { key: 'id', label: '#', _props: { className: 'text-red d-none d-md-table-cell', scope: 'col' } },
+    {
+      key: 'id',
+      label: '#',
+      _props: { className: 'text-red d-none d-md-table-cell', scope: 'col' },
+    },
     { key: 'date', label: 'Date', _props: { scope: 'col' } },
     { key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } },
     { key: 'postcodes', label: 'Postcodes', _props: { scope: 'col' } },
