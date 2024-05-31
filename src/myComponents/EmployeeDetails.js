@@ -135,11 +135,7 @@ const EmployeeDetails = () => {
     date:
       editingRowId !== item.tsheetId ? (
         item.dateWorked ? (
-          size.width >= 400 ? (
-            formatDate(item.dateWorked)
-          ) : (
-            'No Date Provided hehehe'
-          )
+          size.width >= 300 ? <span className='font-size-12px'>{formatDate(item.dateWorked)}</span> : formatDate(item.dateWorked)
         ) : (
           'No Date Provided'
         )
