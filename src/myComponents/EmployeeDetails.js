@@ -133,11 +133,7 @@ const EmployeeDetails = () => {
   ]
 
   const items = timesheet?.map((item, index) => ({
-    id: (
-      <span className="d-none d-md-table-cell">
-        {index + 1}
-      </span>
-    ),
+    id: <span className="d-none d-md-table-cell">{index + 1}</span>,
     date:
       editingRowId !== item.tsheetId ? (
         item.dateWorked ? (
