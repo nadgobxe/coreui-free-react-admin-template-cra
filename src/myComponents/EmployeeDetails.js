@@ -154,7 +154,7 @@ const EmployeeDetails = () => {
       ) : (
         <CFormInput
           type="date"
-          size="sm"
+          size={size.width >= 768 ? 'sm' : 'lg'}
           name="dateWorked"
           placeholder="Change date"
           aria-label="change date"
