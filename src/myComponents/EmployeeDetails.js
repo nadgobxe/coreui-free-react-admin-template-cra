@@ -13,6 +13,7 @@ import { CTable, CContainer, CRow, CCol, CButton, CFormInput, CAlert } from '@co
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash, cilPlus, cilCheck } from '@coreui/icons'
 import EmployeeWidgets from './EmployeeDetailsParts/EmployeeWidgets'
+import classNames from 'classnames'
 
 const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null)
@@ -119,7 +120,7 @@ const EmployeeDetails = () => {
   }
 
   const columns = [
-    { key: 'id', label: '#', _props: { scope: 'col' } },
+    { key: 'id', label: '#', _props: { scope: 'col' }, className: 'd-none d-md-table-cell' },
     { key: 'date', label: 'Date', _props: { scope: 'col' } },
     { key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } },
     { key: 'postcodes', label: 'Postcodes', _props: { scope: 'col' } },
