@@ -154,7 +154,7 @@ const EmployeeDetails = () => {
       ) : (
         <CFormInput
           type="date"
-          size={size.width >= 768 ? 'sm' : 'lg'}
+          size="sm"
           name="dateWorked"
           placeholder="Change date"
           aria-label="change date"
@@ -290,7 +290,7 @@ const EmployeeDetails = () => {
                       <div className="d-flex flex-column flex-md-row gap-0 column-gap-3">
                         <CFormInput
                           type="date"
-                          size="sm"
+                          size={size.width >= 768 ? 'sm' : 'lg'}
                           name="dateWorked"
                           placeholder="Select Date"
                           aria-label="select date worked"
