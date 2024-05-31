@@ -287,7 +287,7 @@ const EmployeeDetails = () => {
                     </div>
                   ) : (
                     <div className="d-grid gap-2 col-12 mx-auto">
-                      <div className="d-flex flex-col flex-md-row gap-0 column-gap-3">
+                      <div className="d-flex flex-column flex-md-row gap-0 column-gap-3">
                         <CFormInput
                           type="date"
                           size="sm"
