@@ -75,53 +75,56 @@ export default function EmployeeWidgets({
           </CButton>
         </CCardBody>
       </CCard>
-
-      <CWidgetStatsA
-        className="mb-4"
-        color="primary"
-        value={
-          <>
-            {isShown ? `£${reduce} ` : 'Loading...'}
-            <span className="fs-6 fw-normal">
-              (40.9% <CIcon icon={cilArrowTop} />)
-            </span>
-          </>
-        }
-        title={
-          <>
-            {isShown
-              ? `${employeeProp?.name}'s Total Earnings for month ${new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}`
-              : 'Loading...'}
-          </>
-        }
-      />
-      <CWidgetStatsA
-        className="mb-4"
-        color="primary"
-        value={
-          <>
-            {isShown
-              ? `Average Win per Hour £${formatNumber(payDividedByTotalHours)} `
-              : 'Loading...'}
-            <span className="fs-6 fw-normal">
-              (40.9% <CIcon icon={cilArrowTop} />)
-            </span>
-          </>
-        }
-        title={
-          <>
-            {isShown ? (
-              <>
-                {`${employeeProp?.name}'s worked a total of ${payPerHour} `}
-                <CIcon icon={cilClock} size="sm" />
-                {` hours in the month of  ${new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}`}
-              </>
-            ) : (
-              'Loading...'
-            )}
-          </>
-        }
-      />
+      {width >= 768 ? (
+        <CWidgetStatsA
+          className="mb-4"
+          color="primary"
+          value={
+            <>
+              {isShown ? `£${totalPay} ` : 'Loading...'}
+              <span className="fs-6 fw-normal">
+                (40.9% <CIcon icon={cilArrowTop} />)
+              </span>
+            </>
+          }
+          title={
+            <>
+              {isShown
+                ? `${employeeProp?.name}'s Total Earnings for month ${new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}`
+                : 'Loading...'}
+            </>
+          }
+        />
+      ) : null} 
+      {width >= 768 ? (
+        <CWidgetStatsA
+          className="mb-4"
+          color="primary"
+          value={
+            <>
+              {isShown
+                ? `Average Win per Hour £${formatNumber(payDividedByTotalHours)} `
+                : 'Loading...'}
+              <span className="fs-6 fw-normal">
+                (40.9% <CIcon icon={cilArrowTop} />)
+              </span>
+            </>
+          }
+          title={
+            <>
+              {isShown ? (
+                <>
+                  {`${employeeProp?.name}'s worked a total of ${payPerHour} `}
+                  <CIcon icon={cilClock} size="sm" />
+                  {` hours in the month of  ${new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}`}
+                </>
+              ) : (
+                'Loading...'
+              )}
+            </>
+          }
+        />
+      ) : null}
     </>
   )
 }
