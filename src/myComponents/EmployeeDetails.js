@@ -251,6 +251,20 @@ const EmployeeDetails = () => {
     <div>
       <CContainer>
         <CRow>
+          {window.size <= 768 ? (
+            <CCol md={3}>
+              <EmployeeWidgets
+                employee={employee}
+                reduce={reduce}
+                isShown={isShown}
+                reduceHours={reduceHours}
+                timesheet={timesheet}
+                handleSendTimeSheet={handleSendTimesheet}
+              />
+            </CCol>
+          ) : (
+            <></>
+          )}
           <CCol sm="auto">
             <p>Employee ID: {id}</p>
           </CCol>
