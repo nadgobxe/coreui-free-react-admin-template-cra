@@ -95,7 +95,7 @@ export default function EmployeeWidgets({
             </>
           }
         />
-      ) : null} 
+      ) : null}
       {width >= 768 ? (
         <CWidgetStatsA
           className="mb-4"
