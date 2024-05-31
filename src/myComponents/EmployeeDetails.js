@@ -123,10 +123,10 @@ const EmployeeDetails = () => {
   const columns = [
     ...(size.width >= 768 ? [{ key: 'id', label: '#', _props: { scope: 'col' } }] : []),
     { key: 'date', label: 'Date', _props: { scope: 'col' } },
-    { key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } },
-    { key: 'postcodes', label: 'Postcodes', _props: { scope: 'col' } },
-    { key: 'hours_worked', label: 'Hours Worked', _props: { scope: 'col' } },
-    { key: 'total_day_pay', label: 'Total Day Pay', _props: { scope: 'col' } },
+    ...(size.width >= 768 ? [{ key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } }] : [{ key: 'colleagues', label: 'Col', _props: { scope: 'col' } }]),
+    ...(size.width >= 768 ? [{ key: 'postcodes', label: 'Postcodes', _props: { scope: 'col' } }] : [{ key: 'postcodes', label: 'PC', _props: { scope: 'col' } }]),
+    ...(size.width >= 768 ? [{ key: 'hours_worked', label: 'Hours Worked', _props: { scope: 'col' } }] : [{ key: 'hours_worked', label: 'HW', _props: { scope: 'col' } }]),
+    ...(size.width >= 768 ? [{ key: 'total_day_pay', label: 'Total Day Pay', _props: { scope: 'col' } }] : [{ key: 'total_day_pay', label: 'TPD', _props: { scope: 'col' } }]),
     { key: 'edit', label: 'Edit', _props: { scope: 'col' } },
   ]
 
