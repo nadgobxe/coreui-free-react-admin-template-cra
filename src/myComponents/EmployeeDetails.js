@@ -122,7 +122,7 @@ const EmployeeDetails = () => {
     {
       key: 'id',
       label: '#',
-      _props: { className: 'text-red d-none d-md-table-cell', scope: 'col' },
+      _props: { className: 'd-none d-md-table-cell', scope: 'col' },
     },
     { key: 'date', label: 'Date', _props: { scope: 'col' } },
     { key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } },
@@ -133,7 +133,11 @@ const EmployeeDetails = () => {
   ]
 
   const items = timesheet?.map((item, index) => ({
-    id: index + 1,
+    id: (
+      <span className="d-none d-md-table-cell">
+        {index + 1}
+      </span>
+    ),
     date:
       editingRowId !== item.tsheetId ? (
         item.dateWorked ? (
