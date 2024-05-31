@@ -13,6 +13,7 @@ import { CTable, CContainer, CRow, CCol, CButton, CFormInput, CAlert } from '@co
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash, cilPlus, cilCheck } from '@coreui/icons'
 import EmployeeWidgets from './EmployeeDetailsParts/EmployeeWidgets'
+import useWindowSize from 'src/utils/windowSize'
 
 const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null)
@@ -32,6 +33,7 @@ const EmployeeDetails = () => {
   const [showAlert, setShowAlert] = useState(true)
 
   let { id } = useParams()
+  const size = useWindowSize()
 
   const fetchTimesheetsAndUpdateState = useCallback(() => {
     fetchGetTimesheet(id).then((data) => {
@@ -119,11 +121,7 @@ const EmployeeDetails = () => {
   }
 
   const columns = [
-    {
-      key: 'id',
-      label: '#',
-      _props: { className: 'd-none d-md-table-cell', scope: 'col' },
-    },
+    ...(size.width >= 768 ? [{ key: 'id', label: '#', _props: { scope: 'col' } }] : []),
     { key: 'date', label: 'Date', _props: { scope: 'col' } },
     { key: 'colleagues', label: 'Colleagues', _props: { scope: 'col' } },
     { key: 'postcodes', label: 'Postcodes', _props: { scope: 'col' } },
@@ -133,7 +131,7 @@ const EmployeeDetails = () => {
   ]
 
   const items = timesheet?.map((item, index) => ({
-    id: <span className="d-none d-md-table-cell">{index + 1}</span>,
+    ...(size.width >= 768 ? { id: index + 1 } : {}),
     date:
       editingRowId !== item.tsheetId ? (
         item.dateWorked ? (
